@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    const int MAX_CHARACTERS = 5;
+    const int MAX_CHARACTERS = 10;
 
     public GameObject mcPrefab;
     private GameObject[] mMainCharacters;
@@ -24,11 +24,8 @@ public class Game : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            mMovingIndex++;
-            if (mMovingIndex < MAX_CHARACTERS)
-            {
-                mMainCharacters[mMovingIndex].GetComponent<MainCharacter>().Move();
-            }
+            mMovingIndex = (mMovingIndex >= MAX_CHARACTERS) ? 0 : mMovingIndex + 1;
+            mMainCharacters[mMovingIndex].GetComponent<MainCharacter>().Move();
         }
     }
 }
