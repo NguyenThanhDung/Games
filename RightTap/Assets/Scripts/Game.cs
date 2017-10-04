@@ -6,6 +6,7 @@ public class Game : MonoBehaviour {
 
 	public GameObject mcPrefab;
 	private GameObject mainCharater;
+    //private GameObject[] mMainCharacters;
 
 	// Use this for initialization
 	void Start () {
@@ -17,4 +18,10 @@ public class Game : MonoBehaviour {
 	void Update () {
 		mainCharater.transform.position += new Vector3(0.0f, 0.1f, 0.0f);
 	}
+
+        //mMainCharacters = new GameObject[5];
+        //for(int i=0; i<5; i++)
+        //{
+        //    mMainCharacters[i] = (GameObject)Instantiate(mcPrefab);
+        //}
 }
