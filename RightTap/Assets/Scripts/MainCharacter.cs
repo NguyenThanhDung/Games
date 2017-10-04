@@ -21,6 +21,9 @@ public class MainCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.transform.position += new Vector3(0.0f, 0.05f, 0.0f);
+        if (mIsMoving)
+        {
+            this.transform.position += new Vector3(0.0f, 0.05f, 0.0f);
+        }
     }
 }
