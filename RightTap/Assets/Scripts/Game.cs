@@ -5,13 +5,12 @@ using System;
 
 public class Game : MonoBehaviour
 {
-    public GameObject mcPrefab;
-    private GameObject mMainCharacter;
+    public GameObject Docker;
+    public GameObject MainCharacter;    
 	private System.Random mRandomer;
     
     void Start()
     {
-		mMainCharacter = (GameObject)Instantiate(mcPrefab);
 		mRandomer = new System.Random();
     }
 
@@ -20,7 +19,7 @@ public class Game : MonoBehaviour
 		if(Input.GetMouseButton(0))
 		{
 			int number = mRandomer.Next(0, 100);
-			mMainCharacter.GetComponent<MainCharacter>().Number = number;
+            MainCharacter.GetComponent<MainCharacter>().Number = number;
 		}
     }
 }
