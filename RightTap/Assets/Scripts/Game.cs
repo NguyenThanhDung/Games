@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     void Start()
     {
 		mMainCharacter = (GameObject)Instantiate(mcPrefab);
+		mMainCharacter.GetComponent<MainCharacter>().Number = 25;
     }
 
     void Update()
