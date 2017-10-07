@@ -44,8 +44,11 @@ public class Barrier : MonoBehaviour
             this.transform.position += this.direction;
             if(this.transform.position.y <= -2.2f)
             {
-                shouldMove = false;
-                touchCharacterHandler();
+                if (this.touchCharacterHandler != null)
+                {
+                    this.touchCharacterHandler();
+                    this.touchCharacterHandler = null;
+                }
             }
         }
     }
