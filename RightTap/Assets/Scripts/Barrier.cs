@@ -10,6 +10,7 @@ public class Barrier : MonoBehaviour
     private int end;
     private bool shouldMove;
     private Action<Barrier> touchCharacterHandler;
+    private bool shouldHandleCallback;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class Barrier : MonoBehaviour
     public void SetOnTouchCharacterCallback(Action<Barrier> onBarrierTouchCharacter)
     {
         this.touchCharacterHandler = onBarrierTouchCharacter;
+        this.shouldHandleCallback = true;
     }
 
     public void Move()
@@ -53,6 +55,7 @@ public class Barrier : MonoBehaviour
     {
         this.transform.position = new Vector3(0.0f, 5.5f);
         this.shouldMove = true;
+        this.shouldHandleCallback = true;
     }
 
     void FixedUpdate()
@@ -62,10 +65,10 @@ public class Barrier : MonoBehaviour
             this.transform.position += this.direction;
             if(this.transform.position.y <= -2.2f)
             {
-                if (this.touchCharacterHandler != null)
+                if (this.touchCharacterHandler != null && this.shouldHandleCallback)
                 {
+                    this.shouldHandleCallback = false;
                     this.touchCharacterHandler(this);
-                    this.touchCharacterHandler = null;
                 }
             }
         }
