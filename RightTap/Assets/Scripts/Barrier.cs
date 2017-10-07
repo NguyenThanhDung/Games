@@ -9,7 +9,7 @@ public class Barrier : MonoBehaviour
     private int begin;
     private int end;
     private bool shouldMove;
-    private Action touchCharacterHandler;
+    private Action<Barrier> touchCharacterHandler;
 
     void Start()
     {
@@ -27,14 +27,32 @@ public class Barrier : MonoBehaviour
         this.transform.GetChild(0).GetComponent<TextMesh>().text = this.begin.ToString() + " - " + this.end.ToString();
     }
 
+    public void SetOnTouchCharacterCallback(Action<Barrier> onBarrierTouchCharacter)
+    {
+        this.touchCharacterHandler = onBarrierTouchCharacter;
+    }
+
     public void Move()
     {
         this.shouldMove = true;
     }
 
-    public void SetOnTouchCharacterCallback(Action onBarrierTouchCharacter)
+    public void Stop()
     {
-        this.touchCharacterHandler = onBarrierTouchCharacter;
+        this.shouldMove = false;
+    }
+
+    public bool CanCharacterDestroy(MainCharacter characeter)
+    {
+        if (characeter.Number >= this.begin && characeter.Number <= this.end)
+            return true;
+        return false;
+    }
+
+    public void Destroy()
+    {
+        this.shouldMove = false;
+        this.transform.position = new Vector3(0.0f, 5.5f);
     }
 
     void FixedUpdate()
@@ -46,7 +64,7 @@ public class Barrier : MonoBehaviour
             {
                 if (this.touchCharacterHandler != null)
                 {
-                    this.touchCharacterHandler();
+                    this.touchCharacterHandler(this);
                     this.touchCharacterHandler = null;
                 }
             }

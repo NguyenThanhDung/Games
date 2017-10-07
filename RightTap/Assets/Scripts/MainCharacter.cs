@@ -20,6 +20,10 @@ public class MainCharacter : MonoBehaviour
                 }
             }
         }
+        get
+        {
+            return this.number;
+        }
     }
 
     void Start()

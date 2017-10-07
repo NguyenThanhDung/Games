@@ -32,13 +32,19 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            this.barrier.Move();
             this.mainCharacter.Number = this.docker.Number;
+        }
+        if(Input.GetMouseButtonDown(1))
+        {
+            this.barrier.Move();
         }
     }
 
-    public void OnBarrierTouchCharacter()
+    public void OnBarrierTouchCharacter(Barrier barrier)
     {
-        Debug.Log("Barrier touched the character!");
+        if (barrier.CanCharacterDestroy(this.mainCharacter))
+            barrier.Destroy();
+        else
+            barrier.Stop();
     }
 }
