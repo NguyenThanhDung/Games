@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
         this.barrier = this.barrierObj.GetComponent<Barrier>();
         this.barrier.SetParams(0.05f, 10, 20);
-        this.barrier.SetOnTouchFloorCallback(OnBarrierTouchFloor);
+        this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
     }
 
     void Update()
@@ -37,8 +37,8 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void OnBarrierTouchFloor()
+    public void OnBarrierTouchCharacter()
     {
-        Debug.Log("Barrier touched the floor!");
+        Debug.Log("Barrier touched the character!");
     }
 }

@@ -9,7 +9,7 @@ public class Barrier : MonoBehaviour
     private int begin;
     private int end;
     private bool shouldMove;
-    private Action touchFloorHandler;
+    private Action touchCharacterHandler;
 
     void Start()
     {
@@ -32,9 +32,9 @@ public class Barrier : MonoBehaviour
         this.shouldMove = true;
     }
 
-    public void SetOnTouchFloorCallback(Action onBarrierTouchFloor)
+    public void SetOnTouchCharacterCallback(Action onBarrierTouchCharacter)
     {
-        this.touchFloorHandler = onBarrierTouchFloor;
+        this.touchCharacterHandler = onBarrierTouchCharacter;
     }
 
     void FixedUpdate()
@@ -42,10 +42,10 @@ public class Barrier : MonoBehaviour
         if (this.shouldMove)
         {
             this.transform.position += this.direction;
-            if(this.transform.position.y <= -5.0f)
+            if(this.transform.position.y <= -2.2f)
             {
                 shouldMove = false;
-                touchFloorHandler();
+                touchCharacterHandler();
             }
         }
     }
