@@ -49,10 +49,10 @@ public class Barrier : MonoBehaviour
         return false;
     }
 
-    public void Destroy()
+    public void Restart()
     {
-        this.shouldMove = false;
         this.transform.position = new Vector3(0.0f, 5.5f);
+        this.shouldMove = true;
     }
 
     void FixedUpdate()

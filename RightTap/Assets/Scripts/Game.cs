@@ -15,16 +15,19 @@ public class Game : MonoBehaviour
     private MainCharacter mainCharacter;
     private Barrier barrier;
 
+    private bool isGameRunning;
+
     void Start()
     {
         Application.targetFrameRate = 30;
+        this.isGameRunning = false;
 
         this.docker = this.dockerObject.GetComponent<Docker>();
         this.mainCharacter = this.mcObject.GetComponent<MainCharacter>();
 
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
         this.barrier = this.barrierObj.GetComponent<Barrier>();
-        this.barrier.SetParams(0.05f, 10, 20);
+        this.barrier.SetParams(0.05f, 10, 30);
         this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
     }
 
@@ -32,19 +35,23 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (!this.isGameRunning)
+            {
+                this.isGameRunning = true;
+                this.barrier.Restart();
+            }
             this.mainCharacter.Number = this.docker.Number;
-        }
-        if(Input.GetMouseButtonDown(1))
-        {
-            this.barrier.Move();
         }
     }
 
     public void OnBarrierTouchCharacter(Barrier barrier)
     {
         if (barrier.CanCharacterDestroy(this.mainCharacter))
-            barrier.Destroy();
+            barrier.Restart();
         else
+        {
+            this.isGameRunning = false;
             barrier.Stop();
+        }
     }
 }
