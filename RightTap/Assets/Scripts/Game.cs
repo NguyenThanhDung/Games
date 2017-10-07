@@ -7,9 +7,13 @@ public class Game : MonoBehaviour
 {
     public GameObject dockerObject;
     public GameObject mcObject;
+    public GameObject barrierPrefab;
+
+    private GameObject barrierObj;
 
     private Docker docker;
     private MainCharacter mainCharacter;
+    private Barrier barrier;
 
     void Start()
     {
@@ -17,6 +21,8 @@ public class Game : MonoBehaviour
 
         this.docker = dockerObject.GetComponent<Docker>();
         this.mainCharacter = mcObject.GetComponent<MainCharacter>();
+
+        this.barrierObj = (GameObject)Instantiate(barrierPrefab);
     }
 
     void Update()
