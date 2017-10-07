@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Barrier : MonoBehaviour
     private int begin;
     private int end;
     private bool shouldMove;
+    private Action touchFloorHandler;
 
     void Start()
     {
@@ -19,8 +21,8 @@ public class Barrier : MonoBehaviour
     {
         this.direction = new Vector3(0.0f, -speed);
 
-        int range = Random.Range(minRange, maxRange);
-        this.begin = Random.Range(0, 100 - range);
+        int range = UnityEngine.Random.Range(minRange, maxRange);
+        this.begin = UnityEngine.Random.Range(0, 100 - range);
         this.end = begin + range;
         this.transform.GetChild(0).GetComponent<TextMesh>().text = this.begin.ToString() + " - " + this.end.ToString();
     }
@@ -30,11 +32,21 @@ public class Barrier : MonoBehaviour
         this.shouldMove = true;
     }
 
+    public void SetOnTouchFloorCallback(Action onBarrierTouchFloor)
+    {
+        this.touchFloorHandler = onBarrierTouchFloor;
+    }
+
     void FixedUpdate()
     {
         if (this.shouldMove)
         {
             this.transform.position += this.direction;
+            if(this.transform.position.y <= -5.0f)
+            {
+                shouldMove = false;
+                touchFloorHandler();
+            }
         }
     }
 }

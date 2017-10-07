@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
         this.barrier = this.barrierObj.GetComponent<Barrier>();
         this.barrier.SetParams(0.05f, 10, 20);
+        this.barrier.SetOnTouchFloorCallback(OnBarrierTouchFloor);
     }
 
     void Update()
@@ -34,5 +35,10 @@ public class Game : MonoBehaviour
             this.barrier.Move();
             this.mainCharacter.Number = this.docker.Number;
         }
+    }
+
+    public void OnBarrierTouchFloor()
+    {
+        Debug.Log("Barrier touched the floor!");
     }
 }
