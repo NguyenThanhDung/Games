@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    private int mNumber;
+    private int number;
+    private TextMesh textMesh;
+
     public int Number
     {
         set
         {
-            if (mNumber != value)
+            if (number != value)
             {
-                mNumber = value;
-                this.gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = mNumber.ToString();
+                number = value;
+                if (this.textMesh != null)
+                {
+                    this.textMesh.text = number.ToString();
+                }
             }
         }
     }
 
     void Start()
     {
-
+        this.textMesh = this.gameObject.transform.GetChild(0).GetComponent<TextMesh>();
+        this.Number = 0;
     }
 }

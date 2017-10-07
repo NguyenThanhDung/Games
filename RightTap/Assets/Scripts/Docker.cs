@@ -8,6 +8,14 @@ public class Docker : MonoBehaviour
     private int number;
     private TextMesh textMesh;
 
+    public int Number
+    {
+        get
+        {
+            return this.number;
+        }
+    }
+
     void Start()
     {
         this.number = 0;
