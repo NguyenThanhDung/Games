@@ -19,16 +19,19 @@ public class Game : MonoBehaviour
     {
         Application.targetFrameRate = 30;
 
-        this.docker = dockerObject.GetComponent<Docker>();
-        this.mainCharacter = mcObject.GetComponent<MainCharacter>();
+        this.docker = this.dockerObject.GetComponent<Docker>();
+        this.mainCharacter = this.mcObject.GetComponent<MainCharacter>();
 
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
+        this.barrier = this.barrierObj.GetComponent<Barrier>();
+        this.barrier.SetParams(0.05f, 10, 20);
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            this.barrier.Move();
             this.mainCharacter.Number = this.docker.Number;
         }
     }

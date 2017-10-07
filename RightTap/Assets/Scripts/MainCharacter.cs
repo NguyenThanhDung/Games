@@ -24,7 +24,7 @@ public class MainCharacter : MonoBehaviour
 
     void Start()
     {
-        this.textMesh = this.gameObject.transform.GetChild(0).GetComponent<TextMesh>();
+        this.textMesh = this.transform.GetChild(0).GetComponent<TextMesh>();
         this.Number = 0;
     }
 }

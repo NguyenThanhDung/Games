@@ -19,7 +19,7 @@ public class Docker : MonoBehaviour
     void Start()
     {
         this.number = 0;
-        this.textMesh = this.gameObject.transform.GetChild(0).GetComponent<TextMesh>();
+        this.textMesh = this.transform.GetChild(0).GetComponent<TextMesh>();
         this.textMesh.text = this.number.ToString();
     }
 
