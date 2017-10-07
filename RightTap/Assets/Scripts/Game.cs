@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     
     void Start()
     {
+        Application.targetFrameRate = 30;
 		mRandomer = new System.Random();
     }
 
