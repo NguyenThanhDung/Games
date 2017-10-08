@@ -7,13 +7,11 @@ public class Game : MonoBehaviour
 {
     public GameSettings gameSettings;
 
-    public GameObject dockerObject;
     public GameObject mcObject;
     public GameObject obstablePrefab;
 
     private GameObject obstacleObj;
 
-    private Docker docker;
     private MainCharacter mainCharacter;
     private Obstacle obstable;
 
@@ -25,9 +23,8 @@ public class Game : MonoBehaviour
         Screen.SetResolution(450, 800, false);
         this.isGameRunning = false;
 
-        this.docker = this.dockerObject.GetComponent<Docker>();
-        this.docker.NumberSpeed = gameSettings.NumberSpeed;
         this.mainCharacter = this.mcObject.GetComponent<MainCharacter>();
+        this.mainCharacter.NumberSpeed = gameSettings.NumberSpeed;
 
         this.obstacleObj = (GameObject)Instantiate(obstablePrefab);
         this.obstable = this.obstacleObj.GetComponent<Obstacle>();
@@ -44,7 +41,6 @@ public class Game : MonoBehaviour
                 this.isGameRunning = true;                
                 this.obstable.Restart();
             }
-            this.mainCharacter.Number = this.docker.Number;
         }
     }
 
