@@ -9,7 +9,7 @@ public class Docker : MonoBehaviour
     {
         set
         {
-            float totalNumberPerSecond = value * 100;
+            float totalNumberPerSecond = value / 10 * 100;
             float fps = 1 / Time.fixedDeltaTime;
             deltaNumber = totalNumberPerSecond / fps;
         }

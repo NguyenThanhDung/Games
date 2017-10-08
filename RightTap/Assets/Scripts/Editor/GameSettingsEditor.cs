@@ -12,6 +12,6 @@ public class GameSettingsEditor : Editor
         GameSettings targetSetting = (GameSettings)target;
 
         EditorGUILayout.Foldout(true, "Main Character");
-        targetSetting.NumberSpeed = EditorGUILayout.Slider("Number Speed (Loop/Second)", targetSetting.NumberSpeed, 0.1f, 5.0f);
+        targetSetting.NumberSpeed = EditorGUILayout.IntSlider("Number Changing Speed", targetSetting.NumberSpeed, 1, 50);
     }
 }
