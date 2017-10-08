@@ -5,6 +5,8 @@ using System;
 
 public class Game : MonoBehaviour
 {
+    public GameSettings gameSettings;
+
     public GameObject dockerObject;
     public GameObject mcObject;
     public GameObject barrierPrefab;
@@ -20,6 +22,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 30;
+        Screen.SetResolution(450, 800, false);
         this.isGameRunning = false;
 
         this.docker = this.dockerObject.GetComponent<Docker>();
@@ -29,6 +32,8 @@ public class Game : MonoBehaviour
         this.barrier = this.barrierObj.GetComponent<Barrier>();
         this.barrier.SetParams(0.05f, 10, 30);
         this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
+
+        Debug.Log("speed:" + gameSettings.speed.ToString());
     }
 
     void Update()
