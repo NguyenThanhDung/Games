@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
 
-    public int BarrierSpeed;
+    public int ObstacleSpeed;
     public int NumberSpeed;
 
 }

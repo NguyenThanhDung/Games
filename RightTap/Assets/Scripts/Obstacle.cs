@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Barrier : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
     private Vector3 direction;
     private int minRange;
@@ -11,7 +11,7 @@ public class Barrier : MonoBehaviour
     private int begin;
     private int end;
     private bool shouldMove;
-    private Action<Barrier> touchCharacterHandler;
+    private Action<Obstacle> touchCharacterHandler;
     private bool shouldHandleCallback;
 
     void Start()
@@ -35,9 +35,9 @@ public class Barrier : MonoBehaviour
         this.transform.GetChild(0).GetComponent<TextMesh>().text = this.begin.ToString() + " - " + this.end.ToString();
     }
 
-    public void SetOnTouchCharacterCallback(Action<Barrier> onBarrierTouchCharacter)
+    public void SetOnTouchCharacterCallback(Action<Obstacle> onObstacleTouchCharacter)
     {
-        this.touchCharacterHandler = onBarrierTouchCharacter;
+        this.touchCharacterHandler = onObstacleTouchCharacter;
         this.shouldHandleCallback = true;
     }
 

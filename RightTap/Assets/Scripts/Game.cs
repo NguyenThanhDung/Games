@@ -9,13 +9,13 @@ public class Game : MonoBehaviour
 
     public GameObject dockerObject;
     public GameObject mcObject;
-    public GameObject barrierPrefab;
+    public GameObject obstablePrefab;
 
-    private GameObject barrierObj;
+    private GameObject obstacleObj;
 
     private Docker docker;
     private MainCharacter mainCharacter;
-    private Barrier barrier;
+    private Obstacle obstable;
 
     private bool isGameRunning;
 
@@ -29,10 +29,10 @@ public class Game : MonoBehaviour
         this.docker.NumberSpeed = gameSettings.NumberSpeed;
         this.mainCharacter = this.mcObject.GetComponent<MainCharacter>();
 
-        this.barrierObj = (GameObject)Instantiate(barrierPrefab);
-        this.barrier = this.barrierObj.GetComponent<Barrier>();
-        this.barrier.SetParams(gameSettings.BarrierSpeed, 10, 30);
-        this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
+        this.obstacleObj = (GameObject)Instantiate(obstablePrefab);
+        this.obstable = this.obstacleObj.GetComponent<Obstacle>();
+        this.obstable.SetParams(gameSettings.ObstacleSpeed, 10, 30);
+        this.obstable.SetOnTouchCharacterCallback(OnObstacleTouchCharacter);
     }
 
     void Update()
@@ -42,20 +42,20 @@ public class Game : MonoBehaviour
             if (!this.isGameRunning)
             {
                 this.isGameRunning = true;                
-                this.barrier.Restart();
+                this.obstable.Restart();
             }
             this.mainCharacter.Number = this.docker.Number;
         }
     }
 
-    public void OnBarrierTouchCharacter(Barrier barrier)
+    public void OnObstacleTouchCharacter(Obstacle obstacle)
     {
-        if (barrier.CanCharacterDestroy(this.mainCharacter))
-            barrier.Restart();
+        if (obstacle.CanCharacterDestroy(this.mainCharacter))
+            obstacle.Restart();
         else
         {
             this.isGameRunning = false;
-            barrier.Stop();
+            obstacle.Stop();
         }
     }
 }
