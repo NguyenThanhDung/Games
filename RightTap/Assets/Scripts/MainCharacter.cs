@@ -7,6 +7,7 @@ public class MainCharacter : MonoBehaviour
     private float _number;
     private float _deltaNumber;
     private TextMesh _textMesh;
+    private bool _isRunning;
 
     public int Number
     {
@@ -31,15 +32,29 @@ public class MainCharacter : MonoBehaviour
         _number = 0.0f;
         _textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         _textMesh.text = _number.ToString();
+        _isRunning = false;
+    }
+
+    public void Begin()
+    {
+        _isRunning = true;
+    }
+
+    public void Stop()
+    {
+        _isRunning = false;
     }
 
     void FixedUpdate()
     {
-        _number += _deltaNumber;
-        if (_number > 100.0f)
+        if (_isRunning)
         {
-            _number = 0.0f;
+            _number += _deltaNumber;
+            if (_number > 100.0f)
+            {
+                _number = 0.0f;
+            }
+            _textMesh.text = ((int)_number).ToString();
         }
-        _textMesh.text = ((int)_number).ToString();
     }
 }
