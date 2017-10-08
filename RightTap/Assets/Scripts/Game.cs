@@ -41,7 +41,7 @@ public class Game : MonoBehaviour
         {
             if (!this.isGameRunning)
             {
-                this.isGameRunning = true;
+                this.isGameRunning = true;                
                 this.barrier.Restart();
             }
             this.mainCharacter.Number = this.docker.Number;
