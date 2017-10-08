@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
 
         _obstacleObj = (GameObject)Instantiate(_obstablePrefab);
         _obstable = _obstacleObj.GetComponent<Obstacle>();
-        _obstable.SetParams(_gameSettings.ObstacleSpeed, 10, 30);
+        _obstable.SetParams(_gameSettings.ObstacleSpeed, _gameSettings.MinRange, _gameSettings.MaxRange);
         _obstable.SetOnTouchCharacterCallback(OnObstacleTouchCharacter);
     }
 
