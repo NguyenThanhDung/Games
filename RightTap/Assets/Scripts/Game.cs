@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
 
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
         this.barrier = this.barrierObj.GetComponent<Barrier>();
-        this.barrier.SetParams(0.05f, 10, 30);
+        this.barrier.SetParams(gameSettings.BarrierSpeed, 10, 30);
         this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
     }
 

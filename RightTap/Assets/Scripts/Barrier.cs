@@ -20,9 +20,9 @@ public class Barrier : MonoBehaviour
         this.shouldMove = false;
     }
 
-    public void SetParams(float speed, int minRange, int maxRange)
+    public void SetParams(int speed, int minRange, int maxRange)
     {
-        this.direction = new Vector3(0.0f, -speed);
+        this.direction = new Vector3(0.0f, -speed / 100.0f);
         this.minRange = minRange;
         this.maxRange = maxRange;
     }

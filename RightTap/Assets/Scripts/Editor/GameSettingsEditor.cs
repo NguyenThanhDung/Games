@@ -11,6 +11,9 @@ public class GameSettingsEditor : Editor
     {
         GameSettings targetSetting = (GameSettings)target;
 
+        EditorGUILayout.Foldout(true, "Obstacle");
+        targetSetting.BarrierSpeed = EditorGUILayout.IntSlider("Moving Speed", targetSetting.BarrierSpeed, 1, 20);
+
         EditorGUILayout.Foldout(true, "Main Character");
         targetSetting.NumberSpeed = EditorGUILayout.IntSlider("Number Changing Speed", targetSetting.NumberSpeed, 1, 50);
     }
