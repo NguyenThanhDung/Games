@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
 
-    [Header("Speed")]
-    public float speed;
+    public float NumberSpeed;
 
 }

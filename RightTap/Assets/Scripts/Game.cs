@@ -26,14 +26,13 @@ public class Game : MonoBehaviour
         this.isGameRunning = false;
 
         this.docker = this.dockerObject.GetComponent<Docker>();
+        this.docker.NumberSpeed = gameSettings.NumberSpeed;
         this.mainCharacter = this.mcObject.GetComponent<MainCharacter>();
 
         this.barrierObj = (GameObject)Instantiate(barrierPrefab);
         this.barrier = this.barrierObj.GetComponent<Barrier>();
         this.barrier.SetParams(0.05f, 10, 30);
         this.barrier.SetOnTouchCharacterCallback(OnBarrierTouchCharacter);
-
-        Debug.Log("speed:" + gameSettings.speed.ToString());
     }
 
     void Update()

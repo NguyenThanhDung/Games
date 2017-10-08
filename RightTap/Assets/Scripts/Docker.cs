@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Docker : MonoBehaviour
 {
+    private float deltaNumber;
+    public float NumberSpeed
+    {
+        set
+        {
+            float totalNumberPerSecond = value * 100;
+            float fps = 1 / Time.fixedDeltaTime;
+            deltaNumber = totalNumberPerSecond / fps;
+        }
+    }
+
     private float time;
-    private int number;
+    private float number;
     private TextMesh textMesh;
 
     public int Number
     {
         get
         {
-            return this.number;
+            return (int)this.number;
         }
     }
 
@@ -25,16 +36,11 @@ public class Docker : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.time += Time.fixedDeltaTime;
-        if (this.time > 0.05f)
+        this.number += deltaNumber;
+        if(this.number > 100)
         {
-            this.time = 0.0f;
-            this.number += 1;
-            if(this.number > 100)
-            {
-                this.number = 0;
-            }
-            this.textMesh.text = this.number.ToString();
+            this.number = 0;
         }
+        this.textMesh.text = ((int)this.number).ToString();
     }
 }
