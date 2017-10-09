@@ -34,7 +34,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             if (_isGameRunning)
             {
@@ -47,7 +47,7 @@ public class Game : MonoBehaviour
                 _obstable.Restart();
             }
         }
-        if(Input.GetMouseButtonUp(0) || Input.GetKeyUp("space"))
+        if(Input.GetMouseButtonUp(0) || Input.GetKeyUp("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
             if(_isGameRunning)
             {
