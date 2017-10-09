@@ -5,23 +5,29 @@ using System;
 
 public class Game : MonoBehaviour
 {
+    enum GameState
+    {
+        INITIAL,
+        RUNNING,
+        STOPPED
+    };
+
     public GameSettings _gameSettings;
+    private GameState _gameState;
+    public GameObject _restartButton;
 
     public GameObject _mcObject;
     public GameObject _obstablePrefab;
-
     private GameObject _obstacleObj;
-
     private MainCharacter _mainCharacter;
     private Obstacle _obstable;
-
-    private bool _isGameRunning;
 
     void Start()
     {
         Application.targetFrameRate = 30;
         Screen.SetResolution(450, 800, false);
-        _isGameRunning = false;
+        _gameState = GameState.INITIAL;
+        _restartButton.SetActive(false);
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
         _mainCharacter.NumberSpeed = _gameSettings.NumberSpeed;
@@ -36,22 +42,34 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            if (_isGameRunning)
+            switch(_gameState)
             {
-                _mainCharacter.Stop();
-            }
-            else
-            {
-                _isGameRunning = true;
-                _mainCharacter.Begin();
-                _obstable.Restart();
+                case GameState.INITIAL:
+                    _gameState = GameState.RUNNING;
+                    _mainCharacter.Begin();
+                    _obstable.Restart();
+                    break;
+                case GameState.RUNNING:
+                    _mainCharacter.Stop();
+                    break;
+                case GameState.STOPPED:
+                    //Do nothing
+                    break;
             }
         }
         if(Input.GetMouseButtonUp(0) || Input.GetKeyUp("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
-            if(_isGameRunning)
+            switch (_gameState)
             {
-                _mainCharacter.Begin();
+                case GameState.INITIAL:
+                    //Do nothing
+                    break;
+                case GameState.RUNNING:
+                    _mainCharacter.Begin();
+                    break;
+                case GameState.STOPPED:
+                    //Do nothing
+                    break;
             }
         }
     }
@@ -62,9 +80,21 @@ public class Game : MonoBehaviour
             obstacle.Restart();
         else
         {
-            _isGameRunning = false;
+            _gameState = GameState.STOPPED;
             _mainCharacter.Stop();
             obstacle.Stop();
+            _restartButton.SetActive(true);
+        }
+    }
+
+    public void OnRestart()
+    {
+        if (_gameState == GameState.STOPPED)
+        {
+            _restartButton.SetActive(false);
+            _gameState = GameState.RUNNING;
+            _mainCharacter.Begin();
+            _obstable.Restart();
         }
     }
 }
