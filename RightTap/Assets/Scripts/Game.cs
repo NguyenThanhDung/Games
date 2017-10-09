@@ -34,7 +34,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
         {
             if (_isGameRunning)
             {
@@ -47,7 +47,7 @@ public class Game : MonoBehaviour
                 _obstable.Restart();
             }
         }
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) || Input.GetKeyUp("space"))
         {
             if(_isGameRunning)
             {
