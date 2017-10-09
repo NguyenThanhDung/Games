@@ -18,5 +18,11 @@ public class GameSettingsEditor : Editor
 
         EditorGUILayout.Foldout(true, "Main Character");
         targetSetting.NumberSpeed = EditorGUILayout.IntSlider("Number Changing Speed", targetSetting.NumberSpeed, 1, 50);
+
+        if(GUILayout.Button("Save"))
+        {
+            EditorUtility.SetDirty(targetSetting);
+            AssetDatabase.SaveAssets();
+        }
     }
 }
