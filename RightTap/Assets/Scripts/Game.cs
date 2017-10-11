@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -14,19 +15,36 @@ public class Game : MonoBehaviour
 
     public GameSettings _gameSettings;
     private GameState _gameState;
-    public GameObject _restartButton;
+    private int _score;
 
+    public GameObject _restartButton;
+    public Text _scoreText;
     public GameObject _mcObject;
     public GameObject _obstablePrefab;
     private GameObject _obstacleObj;
     private MainCharacter _mainCharacter;
     private Obstacle _obstable;
 
+    public int Score
+    {
+        set
+        {
+            _score = value;
+            _scoreText.text = "Score: " + _score.ToString();
+        }
+        get
+        {
+            return _score;
+        }
+    }
+
     void Start()
     {
         Application.targetFrameRate = 30;
         Screen.SetResolution(450, 800, false);
         _gameState = GameState.INITIAL;
+        Score = 0;
+
         _restartButton.SetActive(false);
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
@@ -77,10 +95,13 @@ public class Game : MonoBehaviour
     public void OnObstacleTouchCharacter(Obstacle obstacle)
     {
         if (obstacle.CanCharacterDestroy(_mainCharacter))
+        {
+            Score++;
             obstacle.Restart();
+        }
         else
         {
-            _gameState = GameState.STOPPED;
+            _gameState = GameState.STOPPED;            
             _mainCharacter.Stop();
             obstacle.Stop();
             _restartButton.SetActive(true);
@@ -93,6 +114,7 @@ public class Game : MonoBehaviour
         {
             _restartButton.SetActive(false);
             _gameState = GameState.RUNNING;
+            Score = 0;
             _mainCharacter.Begin();
             _obstable.Restart();
         }
