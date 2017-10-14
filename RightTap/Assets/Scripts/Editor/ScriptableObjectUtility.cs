@@ -30,4 +30,15 @@ public static class ScriptableObjectUtility
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = asset;
     }
+
+
+    /// <summary>
+    //	Add your custom menu to create ScriptableObject here
+    /// </summary>
+
+    [MenuItem("RightTap/Create Game Settings")]
+    public static void CreateAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<GameSettings>();
+    }
 }
