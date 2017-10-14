@@ -9,19 +9,60 @@ public class GameSettingsEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        GameSettings targetSetting = (GameSettings)target;
+        serializedObject.Update();
+        SerializedProperty levels = serializedObject.FindProperty("levels");
 
-        EditorGUILayout.Foldout(true, "Obstacle");
-        targetSetting.ObstacleSpeed = EditorGUILayout.IntSlider("Moving Speed", targetSetting.ObstacleSpeed, 1, 20);
-        EditorGUILayout.MinMaxSlider(ref targetSetting.MinRange, ref targetSetting.MaxRange, 0, 100);
-        EditorGUILayout.LabelField("Min:" + ((int)targetSetting.MinRange).ToString() + " - Max: " + ((int)targetSetting.MaxRange).ToString());
-
-        EditorGUILayout.Foldout(true, "Main Character");
-        targetSetting.NumberSpeed = EditorGUILayout.IntSlider("Number Changing Speed", targetSetting.NumberSpeed, 1, 50);
-
-        if(GUILayout.Button("Save"))
+        for (int i = 0; i < levels.arraySize; i++)
         {
-            EditorUtility.SetDirty(targetSetting);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.Foldout(true, "Level " + (i + 1).ToString());
+            if (GUILayout.Button("Remove", GUILayout.Width(70)))
+            {
+                levels.DeleteArrayElementAtIndex(i);
+            }
+            EditorGUILayout.EndHorizontal();
+            SerializedProperty level = levels.GetArrayElementAtIndex(i);
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Obstacle");
+            EditorGUI.indentLevel++;
+            EditorGUILayout.IntSlider(level.FindPropertyRelative("ObstacleSpeed"), 1, 20, "Moving Speed");
+
+            EditorGUILayout.BeginHorizontal();
+            float MinRange = level.FindPropertyRelative("MinRange").floatValue;
+            float MaxRange = level.FindPropertyRelative("MaxRange").floatValue;
+            EditorGUILayout.MinMaxSlider("Range", ref MinRange, ref MaxRange, 0, 100);
+            level.FindPropertyRelative("MinRange").floatValue = MinRange;
+            level.FindPropertyRelative("MaxRange").floatValue = MaxRange;
+
+            EditorGUILayout.LabelField(((int)MinRange).ToString() + " - " + ((int)MaxRange).ToString(), GUILayout.Width(70));
+            EditorGUILayout.EndHorizontal();
+            EditorGUI.indentLevel--;
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Main Character");
+            EditorGUI.indentLevel++;
+            EditorGUILayout.IntSlider(level.FindPropertyRelative("NumberSpeed"), 1, 50, "Number Changing Speed");
+            EditorGUI.indentLevel--;
+
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+        }
+
+        if (GUILayout.Button("Add"))
+        {
+            levels.InsertArrayElementAtIndex(levels.arraySize);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        if (GUILayout.Button("Save", GUILayout.Height(40)))
+        {
             AssetDatabase.SaveAssets();
         }
     }

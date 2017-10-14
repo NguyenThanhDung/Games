@@ -11,7 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f0a870e9248694da4ad56c65a4c0de, type: 3}
   m_Name: GameSettings_Default
   m_EditorClassIdentifier: 
-  ObstacleSpeed: 7
-  MinRange: 10.344828
-  MaxRange: 20.229885
-  NumberSpeed: 6
+  levels:
+  - ObstacleSpeed: 5
+    MinRange: 60.159607
+    MaxRange: 80.622055
+    NumberSpeed: 5
+  - ObstacleSpeed: 10
+    MinRange: 40.515656
+    MaxRange: 60.978115
+    NumberSpeed: 10
+  - ObstacleSpeed: 15
+    MinRange: 20.053204
+    MaxRange: 40.51567
+    NumberSpeed: 15

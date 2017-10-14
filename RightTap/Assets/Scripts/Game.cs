@@ -48,11 +48,12 @@ public class Game : MonoBehaviour
         _restartButton.SetActive(false);
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
-        _mainCharacter.NumberSpeed = _gameSettings.NumberSpeed;
+        _mainCharacter.NumberSpeed = 5;// _gameSettings.NumberSpeed;
 
         _obstacleObj = (GameObject)Instantiate(_obstablePrefab);
         _obstable = _obstacleObj.GetComponent<Obstacle>();
-        _obstable.SetParams(_gameSettings.ObstacleSpeed, _gameSettings.MinRange, _gameSettings.MaxRange);
+        //_obstable.SetParams(_gameSettings.ObstacleSpeed, _gameSettings.MinRange, _gameSettings.MaxRange);
+        _obstable.SetParams(5, 10.0f, 20.0f);
         _obstable.SetOnTouchCharacterCallback(OnObstacleTouchCharacter);
     }
 
