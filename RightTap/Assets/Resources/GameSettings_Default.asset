@@ -13,20 +13,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - DurationMinutes: 0
-    DurationSeconds: 10
+    DurationSeconds: 15
+    ObstacleSpeed: 4
+    MinRange: 10.159607
+    MaxRange: 30.62207
+    NumberSpeed: 6
+  - DurationMinutes: 0
+    DurationSeconds: 25
     ObstacleSpeed: 5
-    MinRange: 60.159607
-    MaxRange: 80.622055
-    NumberSpeed: 5
+    MinRange: 10.978107
+    MaxRange: 20.464947
+    NumberSpeed: 6
   - DurationMinutes: 0
-    DurationSeconds: 10
+    DurationSeconds: 40
+    ObstacleSpeed: 6
+    MinRange: 10.991829
+    MaxRange: 20.478722
+    NumberSpeed: 6
+  - DurationMinutes: 0
+    DurationSeconds: 40
     ObstacleSpeed: 7
-    MinRange: 60.978107
-    MaxRange: 81.44057
-    NumberSpeed: 5
-  - DurationMinutes: 0
-    DurationSeconds: 10
-    ObstacleSpeed: 9
-    MinRange: 63.02435
-    MaxRange: 83.48683
-    NumberSpeed: 5
+    MinRange: 10.991829
+    MaxRange: 20.478722
+    NumberSpeed: 6
