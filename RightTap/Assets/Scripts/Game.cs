@@ -14,16 +14,19 @@ public class Game : MonoBehaviour
     };
 
     public GameSettings _gameSettings;
+    public GameObject _mcObject;
+    public GameObject _obstablePrefab;
+    public GameObject _restartButton;
+    public Text _scoreText;
+    public Text _levelText;
+    public Text _timeText;
+    public bool _showTime;
+
     private GameState _gameState;
     private DateTime _timer;
     private int _level;
     private int _score;
 
-    public GameObject _restartButton;
-    public Text _scoreText;
-    public Text _levelText;
-    public GameObject _mcObject;
-    public GameObject _obstablePrefab;
     private GameObject _obstacleObj;
     private MainCharacter _mainCharacter;
     private Obstacle _obstable;
@@ -122,7 +125,12 @@ public class Game : MonoBehaviour
 
         if (_gameState == GameState.RUNNING)
         {
-            int newLevel = _gameSettings.CurrentLevel(DateTime.Now - _timer);
+            TimeSpan playedTime = DateTime.Now - _timer;
+            if (_showTime)
+            {
+                _timeText.text = "Time: " + playedTime.Minutes.ToString("D2") + ":" + playedTime.Seconds.ToString("D2");
+            }
+            int newLevel = _gameSettings.CurrentLevel(playedTime);
             if (newLevel > Level)
             {
                 Level = newLevel;
