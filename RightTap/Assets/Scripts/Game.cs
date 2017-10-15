@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
 
     public GameObject _restartButton;
     public Text _scoreText;
+    public Text _levelText;
     public GameObject _mcObject;
     public GameObject _obstablePrefab;
     private GameObject _obstacleObj;
@@ -40,13 +41,34 @@ public class Game : MonoBehaviour
         }
     }
 
+    public int Level
+    {
+        set
+        {
+            _level = value;
+            if (_mainCharacter != null)
+            {
+                _mainCharacter.Level = _level;
+            }
+            if (_obstable != null)
+            {
+                _obstable.Level = _level;
+            }
+            _levelText.text = "Level: " + (_level + 1).ToString();
+        }
+        get
+        {
+            return _level;
+        }
+    }
+
     void Start()
     {
         Application.targetFrameRate = 30;
         Screen.SetResolution(450, 800, false);
         _gameState = GameState.INITIAL;
         _timer = DateTime.Now;
-        _level = 0;
+        Level = 0;
         Score = 0;
 
         _restartButton.SetActive(false);
@@ -69,7 +91,8 @@ public class Game : MonoBehaviour
                 case GameState.INITIAL:
                     _gameState = GameState.RUNNING;
                     _timer = DateTime.Now;
-                    _level = 0;
+                    Level = 0;
+                    Score = 0;
                     _mainCharacter.Begin();
                     _obstable.Restart();
                     break;
@@ -99,12 +122,10 @@ public class Game : MonoBehaviour
 
         if (_gameState == GameState.RUNNING)
         {
-            int newLevel = _gameSettings.CurrentLevel(new TimeSpan(_timer.Hour, _timer.Minute, _timer.Second));
-            if (newLevel > _level)
+            int newLevel = _gameSettings.CurrentLevel(DateTime.Now - _timer);
+            if (newLevel > Level)
             {
-                _level = newLevel;
-                _mainCharacter.Level = _level;
-                _obstable.Level = _level;
+                Level = newLevel;
             }
         }
     }
@@ -132,7 +153,7 @@ public class Game : MonoBehaviour
             _restartButton.SetActive(false);
             _gameState = GameState.RUNNING;
             _timer = DateTime.Now;
-            _level = 0;
+            Level = 0;
             Score = 0;
             _mainCharacter.Begin();
             _obstable.Restart();
