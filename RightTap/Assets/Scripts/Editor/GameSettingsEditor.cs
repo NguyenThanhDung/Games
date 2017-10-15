@@ -11,6 +11,7 @@ public class GameSettingsEditor : Editor
     {
         serializedObject.Update();
         SerializedProperty levels = serializedObject.FindProperty("levels");
+        int startTime = 0;
 
         for (int i = 0; i < levels.arraySize; i++)
         {
@@ -31,12 +32,23 @@ public class GameSettingsEditor : Editor
             EditorGUI.indentLevel++;
             EditorGUILayout.IntSlider(level.FindPropertyRelative("DurationMinutes"), 0, 10, "Minute");
             EditorGUILayout.IntSlider(level.FindPropertyRelative("DurationSeconds"), 0, 59, "Second");
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Result");
-            EditorGUILayout.LabelField(level.FindPropertyRelative("DurationMinutes").intValue.ToString() + " mins "
-                + level.FindPropertyRelative("DurationSeconds").intValue.ToString() + " secs");
+            if (i == levels.arraySize - 1)
+            {
+                EditorGUILayout.LabelField("Start at " + startTime / 60 + ":" + startTime % 60 + ", run until game ended");
+            }
+            else
+            {
+                EditorGUILayout.LabelField("Start at " + startTime / 60 + ":" + startTime % 60 + ", run in "
+                    + level.FindPropertyRelative("DurationMinutes").intValue.ToString() + " mins "
+                    + level.FindPropertyRelative("DurationSeconds").intValue.ToString() + " secs");
+            }
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel--;
+            startTime += level.FindPropertyRelative("DurationMinutes").intValue * 60;
+            startTime += level.FindPropertyRelative("DurationSeconds").intValue;
 
             // Obstacle
             EditorGUILayout.Space();
