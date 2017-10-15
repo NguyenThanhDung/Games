@@ -7,6 +7,10 @@ public class GameSettings : ScriptableObject
     [System.Serializable]
     public class Level
     {
+        // Duration
+        public int DurationMinutes;
+        public int DurationSeconds;
+
         // Obstacle
         public int ObstacleSpeed;
         public float MinRange;

@@ -14,6 +14,9 @@ public class GameSettingsEditor : Editor
 
         for (int i = 0; i < levels.arraySize; i++)
         {
+            SerializedProperty level = levels.GetArrayElementAtIndex(i);
+
+            // Header
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Foldout(true, "Level " + (i + 1).ToString());
             if (GUILayout.Button("Remove", GUILayout.Width(70)))
@@ -21,8 +24,21 @@ public class GameSettingsEditor : Editor
                 levels.DeleteArrayElementAtIndex(i);
             }
             EditorGUILayout.EndHorizontal();
-            SerializedProperty level = levels.GetArrayElementAtIndex(i);
 
+            // Duration
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Duration");
+            EditorGUI.indentLevel++;
+            EditorGUILayout.IntSlider(level.FindPropertyRelative("DurationMinutes"), 0, 10, "Minute");
+            EditorGUILayout.IntSlider(level.FindPropertyRelative("DurationSeconds"), 0, 59, "Second");
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Result");
+            EditorGUILayout.LabelField(level.FindPropertyRelative("DurationMinutes").intValue.ToString() + " mins "
+                + level.FindPropertyRelative("DurationSeconds").intValue.ToString() + " secs");
+            EditorGUILayout.EndHorizontal();
+            EditorGUI.indentLevel--;
+
+            // Obstacle
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Obstacle");
             EditorGUI.indentLevel++;
@@ -39,12 +55,14 @@ public class GameSettingsEditor : Editor
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel--;
 
+            // Character
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Main Character");
             EditorGUI.indentLevel++;
             EditorGUILayout.IntSlider(level.FindPropertyRelative("NumberSpeed"), 1, 50, "Number Changing Speed");
             EditorGUI.indentLevel--;
 
+            // Footer
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             EditorGUILayout.Space();

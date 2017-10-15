@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Name: GameSettings_Default
   m_EditorClassIdentifier: 
   levels:
-  - ObstacleSpeed: 5
+  - DurationMinutes: 1
+    DurationSeconds: 5
+    ObstacleSpeed: 5
     MinRange: 60.159607
     MaxRange: 80.622055
     NumberSpeed: 5
-  - ObstacleSpeed: 10
+  - DurationMinutes: 2
+    DurationSeconds: 10
+    ObstacleSpeed: 10
     MinRange: 40.515656
     MaxRange: 60.978115
     NumberSpeed: 10
-  - ObstacleSpeed: 15
+  - DurationMinutes: 3
+    DurationSeconds: 15
+    ObstacleSpeed: 15
     MinRange: 20.053204
     MaxRange: 40.51567
     NumberSpeed: 15
