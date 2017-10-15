@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+    private List<GameSettings.Level> _levels;
     private float _number;
     private float _deltaNumber;
     private TextMesh _textMesh;
     private bool _isRunning;
+
+    public List<GameSettings.Level> Levels
+    {
+        set
+        {
+            _levels = value;
+        }
+    }
 
     public int Number
     {
@@ -17,11 +26,12 @@ public class MainCharacter : MonoBehaviour
         }
     }
 
-    public float NumberSpeed
+    public int Level
     {
         set
         {
-            float totalNumberPerSecond = value / 10 * 100;
+            int speed = _levels[value].NumberSpeed;
+            float totalNumberPerSecond = speed / 10 * 100;
             float fps = 1 / Time.fixedDeltaTime;
             _deltaNumber = totalNumberPerSecond / fps;
         }
@@ -29,7 +39,6 @@ public class MainCharacter : MonoBehaviour
 
     void Start()
     {
-        _number = 0.0f;
         _textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         _textMesh.text = _number.ToString();
         _isRunning = false;

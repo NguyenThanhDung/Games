@@ -15,6 +15,8 @@ public class Game : MonoBehaviour
 
     public GameSettings _gameSettings;
     private GameState _gameState;
+    private DateTime _timer;
+    private int _level;
     private int _score;
 
     public GameObject _restartButton;
@@ -43,17 +45,18 @@ public class Game : MonoBehaviour
         Application.targetFrameRate = 30;
         Screen.SetResolution(450, 800, false);
         _gameState = GameState.INITIAL;
+        _timer = DateTime.Now;
+        _level = 0;
         Score = 0;
 
         _restartButton.SetActive(false);
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
-        _mainCharacter.NumberSpeed = 5;// _gameSettings.NumberSpeed;
+        _mainCharacter.Levels = _gameSettings.levels;
 
         _obstacleObj = (GameObject)Instantiate(_obstablePrefab);
         _obstable = _obstacleObj.GetComponent<Obstacle>();
-        //_obstable.SetParams(_gameSettings.ObstacleSpeed, _gameSettings.MinRange, _gameSettings.MaxRange);
-        _obstable.SetParams(5, 10.0f, 20.0f);
+        _obstable.Levels = _gameSettings.levels;
         _obstable.SetOnTouchCharacterCallback(OnObstacleTouchCharacter);
     }
 
@@ -65,6 +68,8 @@ public class Game : MonoBehaviour
             {
                 case GameState.INITIAL:
                     _gameState = GameState.RUNNING;
+                    _timer = DateTime.Now;
+                    _level = 0;
                     _mainCharacter.Begin();
                     _obstable.Restart();
                     break;
@@ -91,6 +96,17 @@ public class Game : MonoBehaviour
                     break;
             }
         }
+
+        if (_gameState == GameState.RUNNING)
+        {
+            int newLevel = _gameSettings.CurrentLevel(new TimeSpan(_timer.Hour, _timer.Minute, _timer.Second));
+            if (newLevel > _level)
+            {
+                _level = newLevel;
+                _mainCharacter.Level = _level;
+                _obstable.Level = _level;
+            }
+        }
     }
 
     public void OnObstacleTouchCharacter(Obstacle obstacle)
@@ -115,6 +131,8 @@ public class Game : MonoBehaviour
         {
             _restartButton.SetActive(false);
             _gameState = GameState.RUNNING;
+            _timer = DateTime.Now;
+            _level = 0;
             Score = 0;
             _mainCharacter.Begin();
             _obstable.Restart();
