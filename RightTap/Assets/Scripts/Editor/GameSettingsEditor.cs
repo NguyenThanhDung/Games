@@ -41,7 +41,7 @@ public class GameSettingsEditor : Editor
             }
             else
             {
-                EditorGUILayout.LabelField("Start at " + (startTime / 60).ToString("D2") + ":" + (startTime / 60).ToString("D2") + ", run in "
+                EditorGUILayout.LabelField("Start at " + (startTime / 60).ToString("D2") + ":" + (startTime % 60).ToString("D2") + ", run in "
                     + level.FindPropertyRelative("DurationMinutes").intValue.ToString("D2") + " mins "
                     + level.FindPropertyRelative("DurationSeconds").intValue.ToString("D2") + " secs");
             }
