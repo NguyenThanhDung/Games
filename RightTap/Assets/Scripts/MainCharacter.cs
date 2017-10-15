@@ -30,7 +30,7 @@ public class MainCharacter : MonoBehaviour
     {
         set
         {
-            int speed = _levels[value].NumberSpeed;
+            float speed = (float)_levels[value].NumberSpeed;
             float totalNumberPerSecond = speed / 10 * 100;
             float fps = 1 / Time.fixedDeltaTime;
             _deltaNumber = totalNumberPerSecond / fps;
