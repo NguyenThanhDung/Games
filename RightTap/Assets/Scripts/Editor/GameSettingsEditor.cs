@@ -37,13 +37,13 @@ public class GameSettingsEditor : Editor
             EditorGUILayout.LabelField("Result");
             if (i == levels.arraySize - 1)
             {
-                EditorGUILayout.LabelField("Start at " + startTime / 60 + ":" + startTime % 60 + ", run until game ended");
+                EditorGUILayout.LabelField("Start at " + (startTime / 60).ToString("D2") + ":" + (startTime % 60).ToString("D2") + ", run until game ended");
             }
             else
             {
-                EditorGUILayout.LabelField("Start at " + startTime / 60 + ":" + startTime % 60 + ", run in "
-                    + level.FindPropertyRelative("DurationMinutes").intValue.ToString() + " mins "
-                    + level.FindPropertyRelative("DurationSeconds").intValue.ToString() + " secs");
+                EditorGUILayout.LabelField("Start at " + (startTime / 60).ToString("D2") + ":" + (startTime / 60).ToString("D2") + ", run in "
+                    + level.FindPropertyRelative("DurationMinutes").intValue.ToString("D2") + " mins "
+                    + level.FindPropertyRelative("DurationSeconds").intValue.ToString("D2") + " secs");
             }
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel--;
