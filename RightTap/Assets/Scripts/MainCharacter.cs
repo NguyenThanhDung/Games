@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+    private Color YELLOW = new Color(255, 248, 0);
+    private Color WHITE = new Color(255, 255, 255);
+
     private List<GameSettings.Level> _levels;
     private float _number;
     private float _deltaNumber;
     private TextMesh _textMesh;
+    private bool _isHightLight;
+    private SpriteRenderer _spriteRender;
     private bool _isRunning;
 
     public List<GameSettings.Level> Levels
@@ -37,10 +42,24 @@ public class MainCharacter : MonoBehaviour
         }
     }
 
+    public bool IsHighLight
+    {
+        set
+        {
+            if (_isHightLight != value)
+            {
+                _isHightLight = value;
+                _spriteRender.color = _isHightLight ? YELLOW : WHITE;
+            }
+        }
+    }
+
     void Start()
     {
         _textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         _textMesh.text = _number.ToString();
+        _isHightLight = false;
+        _spriteRender = GetComponent<SpriteRenderer>();
         _isRunning = false;
     }
 

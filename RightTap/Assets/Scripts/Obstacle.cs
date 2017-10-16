@@ -35,6 +35,22 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    public int Begin
+    {
+        get
+        {
+            return _begin;
+        }
+    }
+
+    public int End
+    {
+        get
+        {
+            return _end;
+        }
+    }
+
     void Start()
     {
         transform.position = new Vector3(0.0f, 5.5f);

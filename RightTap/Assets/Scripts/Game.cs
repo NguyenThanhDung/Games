@@ -138,6 +138,8 @@ public class Game : MonoBehaviour
                 _levelText.text = "Level: " + (Level + 1).ToString();
             }
         }
+
+        _mainCharacter.IsHighLight = IsMCInRange(_mainCharacter, _obstable);
     }
 
     public void OnObstacleTouchCharacter(Obstacle obstacle)
@@ -168,5 +170,10 @@ public class Game : MonoBehaviour
             _mainCharacter.Begin();
             _obstable.Restart();
         }
+    }
+
+    public bool IsMCInRange(MainCharacter mainCharacter, Obstacle obstacle)
+    {
+        return mainCharacter.Number >= obstacle.Begin && mainCharacter.Number <= obstacle.End;
     }
 }
