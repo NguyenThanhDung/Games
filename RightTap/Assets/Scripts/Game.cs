@@ -174,6 +174,6 @@ public class Game : MonoBehaviour
 
     public bool IsMCInRange(MainCharacter mainCharacter, Obstacle obstacle)
     {
-        return mainCharacter.Number >= obstacle.Begin && mainCharacter.Number <= obstacle.End;
+        return _gameState==GameState.RUNNING && mainCharacter.Number >= obstacle.Begin && mainCharacter.Number <= obstacle.End;
     }
 }
