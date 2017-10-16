@@ -75,6 +75,7 @@ public class Game : MonoBehaviour
         Score = 0;
 
         _restartButton.SetActive(false);
+        _timeText.enabled = _showTime;
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
         _mainCharacter.Levels = _gameSettings.levels;
