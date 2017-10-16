@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    private Color YELLOW = new Color(255, 248, 0);
-    private Color WHITE = new Color(255, 255, 255);
+    public Color NormalColor = new Color(255, 255, 255);
+    public Color HighLightColor = new Color(255, 248, 0);
 
     private List<GameSettings.Level> _levels;
     private float _number;
@@ -49,7 +49,7 @@ public class MainCharacter : MonoBehaviour
             if (_isHightLight != value)
             {
                 _isHightLight = value;
-                _spriteRender.color = _isHightLight ? YELLOW : WHITE;
+                _spriteRender.color = _isHightLight ? HighLightColor : NormalColor;
             }
         }
     }
@@ -60,6 +60,7 @@ public class MainCharacter : MonoBehaviour
         _textMesh.text = _number.ToString();
         _isHightLight = false;
         _spriteRender = GetComponent<SpriteRenderer>();
+        _spriteRender.color = NormalColor;
         _isRunning = false;
     }
 
