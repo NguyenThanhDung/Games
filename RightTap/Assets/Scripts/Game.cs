@@ -18,9 +18,9 @@ public class Game : MonoBehaviour
     public GameObject _obstablePrefab;
     public GameObject _restartButton;
     public Text _scoreText;
-    public Text _levelText;
     public Text _timeText;
-    public bool _showTime;
+    public Text _levelText;
+    public bool _showDebugInfo;
 
     private GameState _gameState;
     private DateTime _timer;
@@ -57,7 +57,6 @@ public class Game : MonoBehaviour
             {
                 _obstable.Level = _level;
             }
-            _levelText.text = "Level: " + (_level + 1).ToString();
         }
         get
         {
@@ -75,7 +74,8 @@ public class Game : MonoBehaviour
         Score = 0;
 
         _restartButton.SetActive(false);
-        _timeText.enabled = _showTime;
+        _timeText.enabled = _showDebugInfo;
+        _levelText.enabled = _showDebugInfo;
 
         _mainCharacter = _mcObject.GetComponent<MainCharacter>();
         _mainCharacter.Levels = _gameSettings.levels;
@@ -127,14 +127,15 @@ public class Game : MonoBehaviour
         if (_gameState == GameState.RUNNING)
         {
             TimeSpan playedTime = DateTime.Now - _timer;
-            if (_showTime)
-            {
-                _timeText.text = "Time: " + playedTime.Minutes.ToString("D2") + ":" + playedTime.Seconds.ToString("D2");
-            }
             int newLevel = _gameSettings.CurrentLevel(playedTime);
             if (newLevel > Level)
             {
                 Level = newLevel;
+            }
+            if (_showDebugInfo)
+            {
+                _timeText.text = "Time: " + playedTime.Minutes.ToString("D2") + ":" + playedTime.Seconds.ToString("D2");
+                _levelText.text = "Level: " + (Level + 1).ToString();
             }
         }
     }
