@@ -85,7 +85,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1af66a0fac1419c459ba072fedf8e499, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,7 +113,7 @@ TextMesh:
   m_GameObject: {fileID: 1391902713842880}
   m_Text: 50 - 70
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -121,7 +121,7 @@ TextMesh:
   m_FontSize: 30
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 1af66a0fac1419c459ba072fedf8e499, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -177,3 +177,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
