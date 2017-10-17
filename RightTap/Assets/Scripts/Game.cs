@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     public GameObject _mcObject;
     public GameObject _obstablePrefab;
     public GameObject _restartButton;
+    public Text _instructionText;
     public Text _scoreText;
     public Text _timeText;
     public Text _levelText;
@@ -74,6 +75,7 @@ public class Game : MonoBehaviour
         Score = 0;
 
         _restartButton.SetActive(false);
+        _instructionText.enabled = true;
         _timeText.enabled = _showDebugInfo;
         _levelText.enabled = _showDebugInfo;
 
@@ -94,6 +96,7 @@ public class Game : MonoBehaviour
             {
                 case GameState.INITIAL:
                     _gameState = GameState.RUNNING;
+                    _instructionText.enabled = false;
                     _timer = DateTime.Now;
                     Level = 0;
                     Score = 0;
@@ -151,10 +154,11 @@ public class Game : MonoBehaviour
         }
         else
         {
-            _gameState = GameState.STOPPED;            
+            _gameState = GameState.STOPPED;
             _mainCharacter.Stop();
             obstacle.Stop();
             _restartButton.SetActive(true);
+            _instructionText.enabled = true;
         }
     }
 
@@ -163,6 +167,7 @@ public class Game : MonoBehaviour
         if (_gameState == GameState.STOPPED)
         {
             _restartButton.SetActive(false);
+            _instructionText.enabled = false;
             _gameState = GameState.RUNNING;
             _timer = DateTime.Now;
             Level = 0;
