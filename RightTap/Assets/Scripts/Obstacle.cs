@@ -62,7 +62,8 @@ public class Obstacle : MonoBehaviour
         int range = UnityEngine.Random.Range(_minRange, _maxRange);
         this._begin = UnityEngine.Random.Range(0, 100 - range);
         this._end = _begin + range;
-        this.transform.GetChild(0).GetComponent<TextMesh>().text = _begin.ToString() + " - " + this._end.ToString();
+        this.transform.GetChild(0).GetComponent<TextMesh>().text = _begin.ToString();
+        this.transform.GetChild(1).GetComponent<TextMesh>().text = _end.ToString();
     }
 
     public void SetOnTouchCharacterCallback(Action<Obstacle> onObstacleTouchCharacter)
