@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
                     _obstable.Restart();
                     break;
                 case GameState.RUNNING:
-                    _mainCharacter.Stop();
+                    _mainCharacter.Pause();
                     break;
                 case GameState.STOPPED:
                     //Do nothing
@@ -139,7 +139,7 @@ public class Game : MonoBehaviour
             }
         }
 
-        _mainCharacter.IsHighLight = IsMCInRange(_mainCharacter, _obstable);
+        _mainCharacter.IsInRange = IsMCInRange(_mainCharacter, _obstable);
     }
 
     public void OnObstacleTouchCharacter(Obstacle obstacle)

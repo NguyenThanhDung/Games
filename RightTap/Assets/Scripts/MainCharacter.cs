@@ -11,7 +11,7 @@ public class MainCharacter : MonoBehaviour
     private float _number;
     private float _deltaNumber;
     private TextMesh _textMesh;
-    private bool _isHightLight;
+    private bool _isInRange;
     private SpriteRenderer _spriteRender;
     private bool _isRunning;
 
@@ -42,14 +42,13 @@ public class MainCharacter : MonoBehaviour
         }
     }
 
-    public bool IsHighLight
+    public bool IsInRange
     {
         set
         {
-            if (_isHightLight != value)
+            if (_isInRange != value)
             {
-                _isHightLight = value;
-                _spriteRender.color = _isHightLight ? HighLightColor : NormalColor;
+                _isInRange = value;
             }
         }
     }
@@ -58,7 +57,7 @@ public class MainCharacter : MonoBehaviour
     {
         _textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         _textMesh.text = _number.ToString();
-        _isHightLight = false;
+        _isInRange = false;
         _spriteRender = GetComponent<SpriteRenderer>();
         _spriteRender.color = NormalColor;
         _isRunning = false;
@@ -67,6 +66,11 @@ public class MainCharacter : MonoBehaviour
     public void Begin()
     {
         _isRunning = true;
+    }
+
+    public void Pause()
+    {
+        _isRunning = false;
     }
 
     public void Stop()
@@ -84,6 +88,11 @@ public class MainCharacter : MonoBehaviour
                 _number = 0.0f;
             }
             _textMesh.text = ((int)_number).ToString();
+            _spriteRender.color = NormalColor;
+        }
+        else
+        {
+            _spriteRender.color = _isInRange ? HighLightColor : NormalColor;
         }
     }
 }
