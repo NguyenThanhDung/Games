@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCharacter : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class MainCharacter : MonoBehaviour
+{
+    public Vector3 Position
+    {
+        get
+        {
+            return transform.position;
+        }
+    }
 }
