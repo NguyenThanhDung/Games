@@ -9,7 +9,7 @@ public class Game : MonoBehaviour
 
     private GameSettings _gameSetting;
     private MainCharacter _mainCharacter;
-    private Obstacle[] _obstacle;
+    private Obstacle[] _obstacles;
 
     void Start()
     {
@@ -26,32 +26,34 @@ public class Game : MonoBehaviour
 
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
 
-        _obstacle = new Obstacle[5];
-        for (int i = 0; i < _obstacle.Length; i++)
+        _obstacles = new Obstacle[5];
+        for (int i = 0; i < _obstacles.Length; i++)
         {
-            _obstacle[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
+            _obstacles[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                _obstacle[i].Generate(i, _gameSetting.GetObstacleData());
+                _obstacles[i].Generate(i, _gameSetting.GetObstacleData());
             else
-                _obstacle[i].Generate(i, _gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
-            _obstacle[i].DestroyedCallback = OnObstacleIsDestroyed;
-            _obstacle[i].ReachScreenBottomCallback = OnGameOver;
+                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(), _obstacles[i - 1].NextPosition);
+            _obstacles[i].DestroyedCallback = OnObstacleIsDestroyed;
+            _obstacles[i].ReachScreenBottomCallback = OnGameOver;
         }
     }
 
     void OnObstacleIsDestroyed(int index)
     {
         Debug.Log("Obstacle[" + index + "] is detroyed");
-        int previousIndex = (index == 0) ? _obstacle.Length - 1 : index - 1;
-        _obstacle[index].Generate(index, _gameSetting.GetObstacleData(), _obstacle[previousIndex].NextPosition);
-        //TODO:
-        // - Increase score
+        int previousIndex = (index == 0) ? _obstacles.Length - 1 : index - 1;
+        _obstacles[index].Generate(index, _gameSetting.GetObstacleData(), _obstacles[previousIndex].NextPosition);
+        //TODO: Increase score
     }
 
     void OnGameOver()
     {
         Debug.Log("GameOver");
-        //TODO: Stop game
+        for (int i = 0; i < _obstacles.Length; i++)
+        {
+            _obstacles[i].OnGameOver();
+        }
     }
 
     void Update()
@@ -59,7 +61,7 @@ public class Game : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             bool isAnyObstacleHit = false;
-            foreach (Obstacle obstacle in _obstacle)
+            foreach (Obstacle obstacle in _obstacles)
             {
                 if (_mainCharacter.Position > obstacle.Bottom && _mainCharacter.Position < obstacle.Top)
                 {

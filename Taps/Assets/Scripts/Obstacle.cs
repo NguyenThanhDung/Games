@@ -8,12 +8,11 @@ public class Obstacle : MonoBehaviour
     public float LengthUnit;
     public float CirclePositionLeft;
     public float CirclePositionBottom;
-
+    
+    private int _id;
     public int _hp;
     public int _length = 3;
     public int _space;
-
-    private int _id;
     
     private float OBSTACLE_WIDTH_BUFFER = 0.5f;
     private float CIRCLE_SCALE = 0.6f;
@@ -21,6 +20,7 @@ public class Obstacle : MonoBehaviour
     private float _height;
     private TextMesh _hpText;
     private float _speed = 1.0f;
+    private bool _isRunning;
 
     private Action<int> onDestroyedHandler;
     private Action onReachScreenBottomHandler;
@@ -103,6 +103,7 @@ public class Obstacle : MonoBehaviour
         HP = data.hp;
         _length = data.length;
         _space = data.space;
+        _isRunning = true;
 
         Transform(position);
     }
@@ -161,14 +162,22 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    public void OnGameOver()
+    {
+        _isRunning = false;
+    }
+
     void Update()
     {
-        float distance = _speed * Time.deltaTime;
-        Move(distance);
-        if (Bottom < (0.0f - Camera.main.orthographicSize) && shouldTriggerReachScreenBottomHandler && onReachScreenBottomHandler != null)
+        if (_isRunning)
         {
-            onReachScreenBottomHandler();
-            shouldTriggerReachScreenBottomHandler = false;
+            float distance = _speed * Time.deltaTime;
+            Move(distance);
+            if (Bottom < (0.0f - Camera.main.orthographicSize) && shouldTriggerReachScreenBottomHandler && onReachScreenBottomHandler != null)
+            {
+                onReachScreenBottomHandler();
+                shouldTriggerReachScreenBottomHandler = false;
+            }
         }
     }
 }
