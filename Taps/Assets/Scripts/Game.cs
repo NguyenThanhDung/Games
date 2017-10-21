@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
     public GameObject _mainCharacter;
     public GameObject _obstaclePrefab;
 
-    private GameObject _obstacle;
+    private Obstacle _obstacle;
 
     void Start()
     {
@@ -20,11 +20,15 @@ public class Game : MonoBehaviour
 #endif
         Screen.SetResolution(480, 800, false);
 
-        _obstacle = (GameObject)Instantiate(_obstaclePrefab);
+        _obstacle = Instantiate(_obstaclePrefab).GetComponent<Obstacle>();
     }
     
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+        {
+            Debug.Log("MC Position: " + _mainCharacter.transform.position.ToString());
+            Debug.Log("Obstacle: " + _obstacle.Bottom + "~" + _obstacle.Top);
+        }
     }
 }
