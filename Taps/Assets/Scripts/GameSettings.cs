@@ -40,6 +40,7 @@ public class GameSettings : ScriptableObject
 
     public List<Level> levels = new List<Level>(0);
     public int[] levelIndices;
+    private int currentIndex;
 
     public GameSettings()
     {
@@ -62,12 +63,17 @@ public class GameSettings : ScriptableObject
         levels.Add(level1);
         levels.Add(level2);
 
-        levelIndices = new int[11] { 0, 0, 0, 1, 1, 1, 2, 2, 3, 4, 5 };
+        levelIndices = new int[6] { 0, 0, 0, 1, 1, 2 };
+        currentIndex = -1;
     }
 
-    public ObstacleData GetObstacleData(int currentLevel)
+    public ObstacleData GetObstacleData()
     {
-        //TODO: Pick random data
-        return new ObstacleData(1, 1, 1);
+        currentIndex++;
+        if (currentIndex >= levelIndices.Length)
+            currentIndex = levelIndices.Length - 1;
+        int level = levelIndices[currentIndex];
+        //TODO: Pick random data from this level
+        return levels[level].obstacleDatas[0];
     }
 }

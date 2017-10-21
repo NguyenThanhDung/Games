@@ -8,7 +8,6 @@ public class Game : MonoBehaviour
     public GameObject obstaclePrefab;
 
     private GameSettings _gameSetting;
-    private int _currentLevel;
     private MainCharacter _mainCharacter;
     private Obstacle[] _obstacle;
 
@@ -24,7 +23,6 @@ public class Game : MonoBehaviour
         Screen.SetResolution(480, 800, false);
 
         _gameSetting = new GameSettings();
-        _currentLevel = 0;
 
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
 
@@ -33,9 +31,9 @@ public class Game : MonoBehaviour
         {
             _obstacle[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                _obstacle[i].Generate(_gameSetting.GetObstacleData(_currentLevel));
+                _obstacle[i].Generate(_gameSetting.GetObstacleData());
             else
-                _obstacle[i].Generate(_gameSetting.GetObstacleData(_currentLevel), _obstacle[i - 1].NextPosition);
+                _obstacle[i].Generate(_gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
         }
     }
 
