@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     private GameSettings _gameSetting;
     private MainCharacter _mainCharacter;
     private Obstacle[] _obstacles;
+    private int _score;
 
     void Start()
     {
@@ -37,19 +38,20 @@ public class Game : MonoBehaviour
             _obstacles[i].DestroyedCallback = OnObstacleIsDestroyed;
             _obstacles[i].ReachScreenBottomCallback = OnGameOver;
         }
+
+        _score = 0;
     }
 
     void OnObstacleIsDestroyed(int index)
     {
-        Debug.Log("Obstacle[" + index + "] is detroyed");
         int previousIndex = (index == 0) ? _obstacles.Length - 1 : index - 1;
         _obstacles[index].Generate(index, _gameSetting.GetObstacleData(), _obstacles[previousIndex].NextPosition);
-        //TODO: Increase score
+        _score++;
+        Debug.Log("Score: " + _score);
     }
 
     void OnGameOver()
     {
-        Debug.Log("GameOver");
         for (int i = 0; i < _obstacles.Length; i++)
         {
             _obstacles[i].OnGameOver();
