@@ -365,9 +365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LengthUnit: 0.7
-  _hp: 2
+  _hp: 1
   _length: 3
-  _space: 0
+  _space: 1
 --- !u!1 &896645077
 GameObject:
   m_ObjectHideFlags: 0

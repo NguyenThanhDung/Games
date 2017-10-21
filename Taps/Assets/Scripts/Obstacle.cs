@@ -14,12 +14,12 @@ public class Obstacle : MonoBehaviour
         
     void Start()
     {
-        transform.localScale = new Vector3(8.0f, _length * LengthUnit, 1.0f);
+        float width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height + 0.5f;
+        float height = _length * LengthUnit;
+        transform.localScale = new Vector3(width, height, 1.0f);
         for (int i = 0; i < transform.childCount; i++)
         {
-            Vector3 childScale = new Vector3(1.0f, 1.0f);
-            childScale.x /= transform.localScale.x;
-            childScale.y /= transform.localScale.y;
+            Vector3 childScale = new Vector3(1.0f / transform.localScale.x, 1.0f / transform.localScale.y, 1.0f);
             transform.GetChild(i).transform.localScale = childScale;
         }
 
