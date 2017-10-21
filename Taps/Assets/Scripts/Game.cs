@@ -34,6 +34,7 @@ public class Game : MonoBehaviour
                 _obstacle[i].Generate(_gameSetting.GetObstacleData());
             else
                 _obstacle[i].Generate(_gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
+            _obstacle[i].ReachScreenBottomCallback = OnObstacleReachScreenBottom;
         }
     }
 

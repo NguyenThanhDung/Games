@@ -24,6 +24,7 @@ public class Obstacle : MonoBehaviour
 
     private Action<int> onDestroyedHandler;
     private Action onReachScreenBottomHandler;
+    private bool shouldTriggerReachScreenBottomHandler;
 
     private int HP
     {
@@ -76,6 +77,15 @@ public class Obstacle : MonoBehaviour
         get
         {
             return transform.position.y - _height / 2;
+        }
+    }
+
+    public Action ReachScreenBottomCallback
+    {
+        set
+        {
+            onReachScreenBottomHandler += value;
+            shouldTriggerReachScreenBottomHandler = true;
         }
     }
 
@@ -138,5 +148,10 @@ public class Obstacle : MonoBehaviour
     {
         float distance = _speed * Time.deltaTime;
         Move(distance);
+        if (Bottom < (0.0f - Camera.main.orthographicSize) && shouldTriggerReachScreenBottomHandler && onReachScreenBottomHandler != null)
+        {
+            onReachScreenBottomHandler();
+            shouldTriggerReachScreenBottomHandler = false;
+        }
     }
 }
