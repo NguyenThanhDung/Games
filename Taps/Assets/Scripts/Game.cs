@@ -31,16 +31,17 @@ public class Game : MonoBehaviour
         {
             _obstacle[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                _obstacle[i].Generate(_gameSetting.GetObstacleData());
+                _obstacle[i].Generate(i, _gameSetting.GetObstacleData());
             else
-                _obstacle[i].Generate(_gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
+                _obstacle[i].Generate(i, _gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
+            _obstacle[i].DestroyedCallback = OnObstacleIsDestroyed;
             _obstacle[i].ReachScreenBottomCallback = OnObstacleReachScreenBottom;
         }
     }
 
-    void OnObstacleIsDestroyed()
+    void OnObstacleIsDestroyed(int index)
     {
-        Debug.Log("Obstacle is detroyed");
+        Debug.Log("Obstacle[" + index + "] is detroyed");
         //TODO:
         // - Increase score
         // - Regen
@@ -56,10 +57,8 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            Debug.Log("MC Position: " + _mainCharacter.Position);
             foreach (Obstacle obstacle in _obstacle)
             {
-                Debug.Log("Obstacle: " + obstacle.Bottom + "~" + obstacle.Top);
                 if (_mainCharacter.Position > obstacle.Bottom && _mainCharacter.Position < obstacle.Top)
                 {
                     obstacle.IsHit();
