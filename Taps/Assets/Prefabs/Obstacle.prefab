@@ -168,12 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9590506fa943d541893612bd70f3efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LengthUnit: 0.7
+  DistanceUnit: 0.7
   CirclePositionLeft: 0.5
   CirclePositionBottom: 0.5
-  _hp: 1
-  _length: 1
-  _space: 1
 --- !u!212 &212236575689290214
 SpriteRenderer:
   m_ObjectHideFlags: 1

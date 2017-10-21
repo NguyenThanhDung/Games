@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public float LengthUnit;
+    public float DistanceUnit;
     public float CirclePositionLeft;
     public float CirclePositionBottom;
     
     private int _id;
-    public int _hp;
-    public int _length = 3;
-    public int _space;
+    private int _hp;
+    private int _length;
+    private int _space;
     
     private float OBSTACLE_WIDTH_BUFFER = 0.5f;
     private float CIRCLE_SCALE = 0.6f;
@@ -60,7 +60,7 @@ public class Obstacle : MonoBehaviour
     {
         get
         {
-            return transform.position.y + _height / 2 + _space;
+            return Top + _space * DistanceUnit;
         }
     }
 
@@ -111,9 +111,9 @@ public class Obstacle : MonoBehaviour
     private void Transform(float position)
     {
         _width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
-        _height = _length * LengthUnit;
+        _height = _length * DistanceUnit;
 
-        transform.position = new Vector3(0.0f, position, 0.0f);
+        transform.position = new Vector3(0.0f, position + _height / 2, 0.0f);
         transform.localScale = new Vector3(_width + OBSTACLE_WIDTH_BUFFER, _height, 1.0f);
 
         UpdateChildrenPosition();
