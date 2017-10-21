@@ -17,6 +17,22 @@ public class Obstacle : MonoBehaviour
     private float _height;
     private TextMesh _hpText;
 
+    private int HP
+    {
+        set
+        {
+            _hp = value;
+            if (_hpText != null)
+            {
+                _hpText.text = _hp.ToString();
+            }
+        }
+        get
+        {
+            return _hp;
+        }
+    }
+
     public float Top
     {
         get
@@ -55,7 +71,19 @@ public class Obstacle : MonoBehaviour
         _hpText = transform.GetChild(1).GetComponent<TextMesh>();
         _hpText.text = _hp.ToString();
     }
-    
+
+    public void SetParams(int hp, int length, int space)
+    {
+        HP = hp;
+        _length = length;
+        _space = space;
+    }
+
+    public void IsHit()
+    {
+        HP -= 1;
+    }
+
     void Update()
     {
 

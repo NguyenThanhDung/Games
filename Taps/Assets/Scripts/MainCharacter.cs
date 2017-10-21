@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    public Vector3 Position
+    public float Position
     {
         get
         {
-            return transform.position;
+            return transform.position.y;
         }
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public GameObject _mainCharacter;
-    public GameObject _obstaclePrefab;
+    public GameObject mainCharacterObject;
+    public GameObject obstaclePrefab;
 
+    private MainCharacter _mainCharacter;
     private Obstacle[] _obstacle;
 
     void Start()
@@ -20,19 +21,25 @@ public class Game : MonoBehaviour
 #endif
         Screen.SetResolution(480, 800, false);
 
+        _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
+
         _obstacle = new Obstacle[2];
-        _obstacle[0] = Instantiate(_obstaclePrefab).GetComponent<Obstacle>();
-        _obstacle[1] = Instantiate(_obstaclePrefab).GetComponent<Obstacle>();
+        _obstacle[0] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
+        _obstacle[1] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
     }
     
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            Debug.Log("MC Position: " + _mainCharacter.transform.position.ToString());
+            Debug.Log("MC Position: " + _mainCharacter.Position);
             foreach (Obstacle obstacle in _obstacle)
             {
                 Debug.Log("Obstacle: " + obstacle.Bottom + "~" + obstacle.Top);
+                if(_mainCharacter.Position>obstacle.Bottom&&_mainCharacter.Position<obstacle.Top)
+                {
+                    obstacle.IsHit();
+                }
             }
         }
     }
