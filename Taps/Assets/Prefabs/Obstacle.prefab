@@ -169,6 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LengthUnit: 0.7
+  CirclePositionLeft: 0.5
+  CirclePositionBottom: 0.5
   _hp: 1
   _length: 1
   _space: 1

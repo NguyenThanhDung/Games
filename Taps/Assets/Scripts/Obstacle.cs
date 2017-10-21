@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public float LengthUnit;    
+    public float LengthUnit;
+    public float CirclePositionLeft;
+    public float CirclePositionBottom;
 
     public int _hp;
     public int _length = 3;
@@ -16,11 +18,18 @@ public class Obstacle : MonoBehaviour
         
     void Start()
     {
-        float width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height + OBSTACLE_WIDTH_BUFFER;
+        float width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         float height = _length * LengthUnit;
-        transform.localScale = new Vector3(width, height, 1.0f);
+        transform.localScale = new Vector3(width + OBSTACLE_WIDTH_BUFFER, height, 1.0f);
         for (int i = 0; i < transform.childCount; i++)
         {
+            Vector3 childPosition;
+            if (_length > 1)
+                childPosition = new Vector3(CirclePositionLeft - width / 2, CirclePositionBottom - height / 2, -0.1f * (i + 1));
+            else
+                childPosition = new Vector3(CirclePositionLeft - width / 2, 0.35f - height / 2, -0.1f * (i + 1));
+            transform.GetChild(i).transform.position = childPosition;
+
             Vector3 childScale = new Vector3(CIRCLE_SCALE / transform.localScale.x, CIRCLE_SCALE / transform.localScale.y, 1.0f);
             transform.GetChild(i).transform.localScale = childScale;
         }
