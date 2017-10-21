@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
             else
                 _obstacle[i].Generate(i, _gameSetting.GetObstacleData(), _obstacle[i - 1].NextPosition);
             _obstacle[i].DestroyedCallback = OnObstacleIsDestroyed;
-            _obstacle[i].ReachScreenBottomCallback = OnObstacleReachScreenBottom;
+            _obstacle[i].ReachScreenBottomCallback = OnGameOver;
         }
     }
 
@@ -48,9 +48,9 @@ public class Game : MonoBehaviour
         // - Increase score
     }
 
-    void OnObstacleReachScreenBottom()
+    void OnGameOver()
     {
-        Debug.Log("Obstacle reach screen bottom");
+        Debug.Log("GameOver");
         //TODO: Stop game
     }
 
@@ -58,12 +58,18 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
+            bool isAnyObstacleHit = false;
             foreach (Obstacle obstacle in _obstacle)
             {
                 if (_mainCharacter.Position > obstacle.Bottom && _mainCharacter.Position < obstacle.Top)
                 {
+                    isAnyObstacleHit = true;
                     obstacle.IsHit();
                 }
+            }
+            if(!isAnyObstacleHit)
+            {
+                OnGameOver();
             }
         }
     }
