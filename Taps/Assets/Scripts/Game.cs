@@ -5,6 +5,9 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public GameObject _mainCharacter;
+    public GameObject _obstaclePrefab;
+
+    private GameObject _obstacle;
 
     void Start()
     {
@@ -16,6 +19,8 @@ public class Game : MonoBehaviour
         Application.targetFrameRate = 30;
 #endif
         Screen.SetResolution(480, 800, false);
+
+        _obstacle = (GameObject)Instantiate(_obstaclePrefab);
     }
     
     void Update()
