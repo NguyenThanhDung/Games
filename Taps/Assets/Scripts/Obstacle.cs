@@ -20,6 +20,7 @@ public class Obstacle : MonoBehaviour
     private float _width;
     private float _height;
     private TextMesh _hpText;
+    private float _speed = 1.0f;
 
     private Action<int> onDestroyedHandler;
     private Action onReachScreenBottomHandler;
@@ -86,7 +87,7 @@ public class Obstacle : MonoBehaviour
         Transform(position);
     }
 
-    public void Transform(float position)
+    private void Transform(float position)
     {
         _width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         _height = _length * LengthUnit;
@@ -94,6 +95,29 @@ public class Obstacle : MonoBehaviour
         transform.position = new Vector3(0.0f, position, 0.0f);
         transform.localScale = new Vector3(_width + OBSTACLE_WIDTH_BUFFER, _height, 1.0f);
 
+        UpdateChildrenPosition();
+        ScaleChildren();
+    }
+
+    private void Move(float distance)
+    {
+        Vector3 position = transform.position;
+        position.y -= distance;
+        transform.position = position;
+        UpdateChildrenPosition();
+    }
+
+    private void ScaleChildren()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Vector3 childScale = new Vector3(CIRCLE_SCALE / transform.localScale.x, CIRCLE_SCALE / transform.localScale.y, 1.0f);
+            transform.GetChild(i).transform.localScale = childScale;
+        }
+    }
+
+    private void UpdateChildrenPosition()
+    {
         for (int i = 0; i < transform.childCount; i++)
         {
             Vector3 childPosition;
@@ -102,9 +126,6 @@ public class Obstacle : MonoBehaviour
             else
                 childPosition = new Vector3(transform.position.x - _width / 2 + CirclePositionLeft, transform.position.y, -0.1f * (i + 1));
             transform.GetChild(i).transform.position = childPosition;
-
-            Vector3 childScale = new Vector3(CIRCLE_SCALE / transform.localScale.x, CIRCLE_SCALE / transform.localScale.y, 1.0f);
-            transform.GetChild(i).transform.localScale = childScale;
         }
     }
 
@@ -115,6 +136,7 @@ public class Obstacle : MonoBehaviour
 
     void Update()
     {
-
+        float distance = _speed * Time.deltaTime;
+        Move(distance);
     }
 }
