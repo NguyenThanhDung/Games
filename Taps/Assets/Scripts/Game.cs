@@ -42,9 +42,10 @@ public class Game : MonoBehaviour
     void OnObstacleIsDestroyed(int index)
     {
         Debug.Log("Obstacle[" + index + "] is detroyed");
+        int previousIndex = (index == 0) ? _obstacle.Length - 1 : index - 1;
+        _obstacle[index].Generate(index, _gameSetting.GetObstacleData(), _obstacle[previousIndex].NextPosition);
         //TODO:
         // - Increase score
-        // - Regen
     }
 
     void OnObstacleReachScreenBottom()

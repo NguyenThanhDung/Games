@@ -23,8 +23,6 @@ public class Obstacle : MonoBehaviour
     private float _speed = 1.0f;
 
     private Action<int> onDestroyedHandler;
-    private bool shouldTriggerDestroyedHandler;
-
     private Action onReachScreenBottomHandler;
     private bool shouldTriggerReachScreenBottomHandler;
 
@@ -87,7 +85,6 @@ public class Obstacle : MonoBehaviour
         set
         {
             onDestroyedHandler += value;
-            shouldTriggerDestroyedHandler = true;
         }
     }
 
@@ -106,6 +103,7 @@ public class Obstacle : MonoBehaviour
         HP = data.hp;
         _length = data.length;
         _space = data.space;
+
         Transform(position);
     }
 
@@ -156,12 +154,10 @@ public class Obstacle : MonoBehaviour
         HP -= 1;
         if (HP == 0)
         {
-            if (shouldTriggerDestroyedHandler && onDestroyedHandler != null)
+            if (onDestroyedHandler != null)
             {
                 onDestroyedHandler(_id);
-                shouldTriggerDestroyedHandler = false;
             }
-            gameObject.SetActive(false);
         }
     }
 
