@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public float DistanceUnit;
     public float CirclePositionLeft;
     public float CirclePositionBottom;
     
@@ -18,8 +17,9 @@ public class Obstacle : MonoBehaviour
     private float CIRCLE_SCALE = 0.6f;
     private float _width;
     private float _height;
-    private TextMesh _hpText;
+    private float _distanceUnit = 0.7f;
     private float _speed = 1.0f;
+    private TextMesh _hpText;
     private bool _isRunning;
 
     private Action<int> onDestroyedHandler;
@@ -78,6 +78,18 @@ public class Obstacle : MonoBehaviour
         {
             return transform.position.y - _height / 2;
         }
+    }
+
+    public float DistanceUnit
+    {
+        set { _distanceUnit = value; }
+        get { return _distanceUnit; }
+    }
+
+    public float Speed
+    {
+        set { _speed = value; }
+        get { return _speed; }
     }
 
     public Action<int> DestroyedCallback
@@ -171,7 +183,7 @@ public class Obstacle : MonoBehaviour
     {
         if (_isRunning)
         {
-            float distance = _speed * Time.deltaTime;
+            float distance = Speed * Time.deltaTime;
             Move(distance);
             if (Bottom < (0.0f - Camera.main.orthographicSize) && shouldTriggerReachScreenBottomHandler && onReachScreenBottomHandler != null)
             {

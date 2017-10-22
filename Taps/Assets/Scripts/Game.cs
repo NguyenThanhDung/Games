@@ -33,6 +33,8 @@ public class Game : MonoBehaviour
         for (int i = 0; i < _obstacles.Length; i++)
         {
             _obstacles[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
+            _obstacles[i].DistanceUnit = _gameSetting.DistanceUnit;
+            _obstacles[i].Speed = _gameSetting.ObstacleSpeed;
             if (i == 0)
                 _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++));
             else
