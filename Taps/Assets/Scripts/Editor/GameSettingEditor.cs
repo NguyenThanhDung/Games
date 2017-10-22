@@ -16,7 +16,11 @@ public class GameSettingEditor : Editor
         SerializedProperty obstacleSpeed = serializedObject.FindProperty("ObstacleSpeed");
         EditorGUILayout.PropertyField(obstacleSpeed);
 
+        // LEVELS
         SerializedProperty levels = serializedObject.FindProperty("levels");
+        EditorGUILayout.Space();
+        EditorGUILayout.Foldout(true, "Level Data");
+        EditorGUI.indentLevel++;
         for (int i = 0; i < levels.arraySize; i++)
         {
             EditorGUILayout.BeginHorizontal();
@@ -60,19 +64,51 @@ public class GameSettingEditor : Editor
             }
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel--;
-
-            EditorGUILayout.Space();
-            EditorGUILayout.Space();
+            
             EditorGUILayout.Space();
         }
-        if (GUILayout.Button("Add Level"))
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space();
+        if (GUILayout.Button("Add Level", GUILayout.Width(100)))
         {
             levels.InsertArrayElementAtIndex(levels.arraySize);
             SerializedProperty obstacleDatas = serializedObject.FindProperty("levels.Array.data[" + (levels.arraySize - 1) + "].obstacleDatas");
             obstacleDatas.ClearArray();
             obstacleDatas.InsertArrayElementAtIndex(obstacleDatas.arraySize);
         }
+        EditorGUILayout.EndHorizontal();
+        EditorGUI.indentLevel--;
 
+        // LEVEL INDICES
+        SerializedProperty levelIndices = serializedObject.FindProperty("levelIndices");
+        EditorGUILayout.Space();
+        EditorGUILayout.Foldout(true, "Level Indices");
+        EditorGUI.indentLevel++;
+        for (int i = 0; i < levelIndices.arraySize; i++)
+        {
+            SerializedProperty obstacleData = levelIndices.GetArrayElementAtIndex(i);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PropertyField(obstacleData);
+            EditorGUILayout.Space();
+            if (GUILayout.Button("-", GUILayout.Width(30)))
+            {
+                obstacleData.DeleteArrayElementAtIndex(i);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space();
+        if (GUILayout.Button("+", GUILayout.Width(30)))
+        {
+            levelIndices.InsertArrayElementAtIndex(levelIndices.arraySize);
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUI.indentLevel--;
+
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
         serializedObject.ApplyModifiedProperties();
         if (GUILayout.Button("Save", GUILayout.Height(40)))
         {

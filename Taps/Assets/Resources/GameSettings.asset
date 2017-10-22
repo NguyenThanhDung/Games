@@ -28,4 +28,4 @@ MonoBehaviour:
     - hp: 2
       length: 2
       space: 2
-  levelIndices: 
+  levelIndices: 000000000100000002000000
