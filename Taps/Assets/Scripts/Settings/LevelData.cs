@@ -10,6 +10,13 @@ public class LevelData : ScriptableObject
         public int hp;
         public int length;
         public int space;
+
+        public ObstacleData()
+        {
+            hp = 1;
+            length = 3;
+            space = 3;
+        }
     }
 
     [System.Serializable]
@@ -19,4 +26,24 @@ public class LevelData : ScriptableObject
     }
 
     public List<Level> levels = new List<Level>(0);
+
+    public ObstacleData PickDefaultObstacle()
+    {
+        return new ObstacleData();
+    }
+
+    public ObstacleData PickObstacle(int level)
+    {
+        if (levels.Count <= 0)
+            return PickDefaultObstacle();
+
+        if (level >= levels.Count)
+            level = levels.Count - 1;
+
+        if (levels[level].obstacleDatas.Count <= 0)
+            return PickDefaultObstacle();
+
+        int index = Random.Range(0, levels[level].obstacleDatas.Count);
+        return levels[level].obstacleDatas[index];
+    }
 }
