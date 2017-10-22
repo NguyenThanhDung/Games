@@ -13,5 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DistanceUnit: 0.7
   ObstacleSpeed: 1
-  levelData: {fileID: 0}
+  levels:
+  - obstacleDatas:
+    - hp: 1
+      length: 1
+      space: 1
+    - hp: 1
+      length: 1
+      space: 1
+  - obstacleDatas:
+    - hp: 2
+      length: 2
+      space: 2
+    - hp: 2
+      length: 2
+      space: 2
   levelIndices: 
