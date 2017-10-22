@@ -101,7 +101,8 @@ public class GameSettingEditor : Editor
             EditorGUILayout.Space();
             if (GUILayout.Button("-", GUILayout.Width(30)))
             {
-                obstacleData.DeleteArrayElementAtIndex(i);
+                levelIndices.DeleteArrayElementAtIndex(i);
+                break;
             }
             EditorGUILayout.EndHorizontal();
         }
