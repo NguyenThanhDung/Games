@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
             _obstacles[i].DistanceUnit = _gameSetting.DistanceUnit;
             _obstacles[i].Speed = _gameSetting.ObstacleSpeed;
             if (i == 0)
-                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++));
+                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++), Camera.main.orthographicSize);
             else
                 _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++), _obstacles[i - 1].NextPosition);
             _obstacles[i].DestroyedCallback = OnObstacleIsDestroyed;

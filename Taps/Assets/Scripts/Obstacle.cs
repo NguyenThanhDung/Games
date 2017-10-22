@@ -109,7 +109,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void Generate(int id, GameSettings.ObstacleData data, float position = 0.0f)
+    public void Generate(int id, GameSettings.ObstacleData data, float position)
     {
         _id = id;
         HP = data.hp;
