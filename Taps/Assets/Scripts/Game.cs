@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     private MainCharacter _mainCharacter;
     private Obstacle[] _obstacles;
     private int _score;
+    private int _currentLevelIndex;
 
     void Start()
     {
@@ -23,6 +24,9 @@ public class Game : MonoBehaviour
 #endif
         Screen.SetResolution(480, 800, false);
 
+        _score = 0;
+        _currentLevelIndex = 0;
+
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
 
         _obstacles = new Obstacle[5];
@@ -30,20 +34,18 @@ public class Game : MonoBehaviour
         {
             _obstacles[i] = Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                _obstacles[i].Generate(i, _gameSetting.GetObstacleData());
+                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++));
             else
-                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(), _obstacles[i - 1].NextPosition);
+                _obstacles[i].Generate(i, _gameSetting.GetObstacleData(_currentLevelIndex++), _obstacles[i - 1].NextPosition);
             _obstacles[i].DestroyedCallback = OnObstacleIsDestroyed;
             _obstacles[i].ReachScreenBottomCallback = OnGameOver;
         }
-
-        _score = 0;
     }
 
     void OnObstacleIsDestroyed(int index)
     {
         int previousIndex = (index == 0) ? _obstacles.Length - 1 : index - 1;
-        _obstacles[index].Generate(index, _gameSetting.GetObstacleData(), _obstacles[previousIndex].NextPosition);
+        _obstacles[index].Generate(index, _gameSetting.GetObstacleData(_currentLevelIndex++), _obstacles[previousIndex].NextPosition);
         _score++;
         Debug.Log("Score: " + _score);
     }

@@ -30,14 +30,12 @@ public class GameSettings : ScriptableObject
     public float ObstacleSpeed = 1.0f;
     public List<Level> levels = new List<Level>(0);
     public List<int> levelIndices = new List<int>(0);
-    private int currentIndex = -1;
 
-    public ObstacleData GetObstacleData()
+    public ObstacleData GetObstacleData(int levelIndex)
     {
-        currentIndex++;
-        if (currentIndex >= levelIndices.Count)
-            currentIndex = levelIndices.Count - 1;
-        int level = levelIndices[currentIndex];
+        if (levelIndex >= levelIndices.Count)
+            levelIndex = levelIndices.Count - 1;
+        int level = levelIndices[levelIndex];
         return PickObstacle(level);
     }
 
