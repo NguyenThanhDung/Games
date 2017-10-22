@@ -8,7 +8,6 @@ public class Obstacle : MonoBehaviour
     public float CirclePositionLeft;
     public float CirclePositionBottom;
     
-    private int _id;
     private int _hp;
     private int _length;
     private int _space;
@@ -22,7 +21,7 @@ public class Obstacle : MonoBehaviour
     private TextMesh _hpText;
     private bool _isRunning;
 
-    private Action<int> onDestroyedHandler;
+    private Action onDestroyedHandler;
     private Action onReachScreenBottomHandler;
     private bool shouldTriggerReachScreenBottomHandler;
 
@@ -60,7 +59,7 @@ public class Obstacle : MonoBehaviour
     {
         get
         {
-            return Top + _space * DistanceUnit;
+            return Top + _space * _distanceUnit;
         }
     }
 
@@ -80,19 +79,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public float DistanceUnit
-    {
-        set { _distanceUnit = value; }
-        get { return _distanceUnit; }
-    }
-
-    public float Speed
-    {
-        set { _speed = value; }
-        get { return _speed; }
-    }
-
-    public Action<int> DestroyedCallback
+    public Action DestroyedCallback
     {
         set
         {
@@ -109,12 +96,14 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void Generate(int id, GameSettings.ObstacleData data, float position)
+    public Obstacle(GameSettings.ObstacleData data, float position, float distanceUnit, float speed)
     {
-        _id = id;
         HP = data.hp;
         _length = data.length;
         _space = data.space;
+
+        _distanceUnit = distanceUnit;
+        _speed = speed;
         _isRunning = true;
 
         Transform(position);
@@ -123,7 +112,7 @@ public class Obstacle : MonoBehaviour
     private void Transform(float position)
     {
         _width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
-        _height = _length * DistanceUnit;
+        _height = _length * _distanceUnit;
 
         transform.position = new Vector3(0.0f, position + _height / 2, 0.0f);
         transform.localScale = new Vector3(_width + OBSTACLE_WIDTH_BUFFER, _height, 1.0f);
@@ -162,16 +151,20 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void IsHit()
+    public bool IsHit(float mcPosition)
     {
+        if (mcPosition < Bottom || mcPosition > Top)
+            return false;
+
         HP -= 1;
         if (HP == 0)
         {
             if (onDestroyedHandler != null)
             {
-                onDestroyedHandler(_id);
+                onDestroyedHandler();
             }
         }
+        return true;
     }
 
     public void OnGameOver()
@@ -183,7 +176,7 @@ public class Obstacle : MonoBehaviour
     {
         if (_isRunning)
         {
-            float distance = Speed * Time.deltaTime;
+            float distance = _speed * Time.deltaTime;
             Move(distance);
             if (Bottom < (0.0f - Camera.main.orthographicSize) && shouldTriggerReachScreenBottomHandler && onReachScreenBottomHandler != null)
             {

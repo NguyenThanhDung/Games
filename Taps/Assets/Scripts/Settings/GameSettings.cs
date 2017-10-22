@@ -21,9 +21,15 @@ public class GameSettings : ScriptableObject
     }
 
     [System.Serializable]
-    public class Level
+    public class Template
     {
         public List<ObstacleData> obstacleDatas = new List<ObstacleData>(0);
+    }
+
+    [System.Serializable]
+    public class Level
+    {
+        public List<Template> templates = new List<Template>(0);
     }
 
     public float DistanceUnit = 0.7f;
@@ -31,31 +37,36 @@ public class GameSettings : ScriptableObject
     public List<Level> levels = new List<Level>(0);
     public List<int> levelIndices = new List<int>(0);
 
-    public ObstacleData GetObstacleData(int levelIndex)
+    public Template GetTemplate(int levelIndex)
     {
         if (levelIndex >= levelIndices.Count)
             levelIndex = levelIndices.Count - 1;
         int level = levelIndices[levelIndex];
-        return PickObstacle(level);
+        return PickTemplate(level);
     }
 
-    private ObstacleData PickObstacle(int level)
+    private Template PickTemplate(int level)
     {
         if (levels.Count <= 0)
-            return PickDefaultObstacle();
+            return PickDefaultTemplate();
 
         if (level >= levels.Count)
             level = levels.Count - 1;
 
-        if (levels[level].obstacleDatas.Count <= 0)
-            return PickDefaultObstacle();
+        if (levels[level].templates.Count <= 0)
+            return PickDefaultTemplate();
 
-        int index = UnityEngine.Random.Range(0, levels[level].obstacleDatas.Count);
-        return levels[level].obstacleDatas[index];
+        int index = UnityEngine.Random.Range(0, levels[level].templates.Count);
+        if (levels[level].templates[index].obstacleDatas.Count <= 0)
+            return PickDefaultTemplate();
+
+        return levels[level].templates[index];
     }
 
-    private ObstacleData PickDefaultObstacle()
+    private Template PickDefaultTemplate()
     {
-        return new ObstacleData();
+        Template defaultTemplate = new Template();
+        defaultTemplate.obstacleDatas.Add(new ObstacleData());
+        return defaultTemplate;
     }
 }
