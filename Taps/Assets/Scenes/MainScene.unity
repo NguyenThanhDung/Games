@@ -307,6 +307,7 @@ MonoBehaviour:
   mainCharacterObject: {fileID: 525701839}
   obstaclePrefab: {fileID: 1950384435757922, guid: 5c2131d11385f884896d73c0eef67e6e,
     type: 2}
+  _gameSetting: {fileID: 11400000, guid: 69a8eef0ac9bf594e985805166df3c9e, type: 2}
 --- !u!4 &1704738986
 Transform:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ public class Game : MonoBehaviour
 {
     public GameObject mainCharacterObject;
     public GameObject obstaclePrefab;
+    public GameSettings _gameSetting;
 
-    private GameSettings _gameSetting;
     private MainCharacter _mainCharacter;
     private Obstacle[] _obstacles;
     private int _score;
@@ -22,8 +22,6 @@ public class Game : MonoBehaviour
         Application.targetFrameRate = 30;
 #endif
         Screen.SetResolution(480, 800, false);
-
-        _gameSetting = new GameSettings();
 
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
 

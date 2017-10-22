@@ -28,4 +28,11 @@ MonoBehaviour:
     - hp: 2
       length: 2
       space: 2
-  levelIndices: 000000000100000000000000
+  - obstacleDatas:
+    - hp: 3
+      length: 3
+      space: 3
+    - hp: 3
+      length: 3
+      space: 3
+  levelIndices: 000000000100000002000000
