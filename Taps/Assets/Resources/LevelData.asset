@@ -13,32 +13,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - obstacleDatas:
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
+    - hp: 1
+      length: 1
+      space: 1
+    - hp: 1
+      length: 1
+      space: 1
+    - hp: 1
+      length: 1
+      space: 1
   - obstacleDatas:
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
+    - hp: 2
+      length: 2
+      space: 2
+    - hp: 2
+      length: 2
+      space: 2
+    - hp: 2
+      length: 2
+      space: 2
   - obstacleDatas:
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
-    - hp: 0
-      length: 0
-      space: 0
+    - hp: 3
+      length: 3
+      space: 3
+    - hp: 3
+      length: 3
+      space: 3
+    - hp: 3
+      length: 3
+      space: 3

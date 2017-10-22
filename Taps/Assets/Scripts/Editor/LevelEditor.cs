@@ -35,9 +35,9 @@ public class LevelEditor : Editor
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Template " + (j + 1).ToString(), GUILayout.Width(100));
-                EditorGUILayout.IntField(obstacleData_hp.intValue, GUILayout.Width(50));
-                EditorGUILayout.IntField(obstacleData_length.intValue, GUILayout.Width(50));
-                EditorGUILayout.IntField(obstacleData_space.intValue, GUILayout.Width(50));
+                EditorGUILayout.PropertyField(obstacleData_hp, GUIContent.none, GUILayout.Width(70));
+                EditorGUILayout.PropertyField(obstacleData_length, GUIContent.none, GUILayout.Width(70));
+                EditorGUILayout.PropertyField(obstacleData_space, GUIContent.none, GUILayout.Width(70));
                 EditorGUILayout.Space();
                 if (GUILayout.Button("-", GUILayout.Width(30)))
                 {
