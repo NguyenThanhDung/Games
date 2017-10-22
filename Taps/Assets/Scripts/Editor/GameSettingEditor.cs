@@ -38,7 +38,6 @@ public class GameSettingEditor : Editor
             EditorGUI.indentLevel++;
             for (int j = 0; j < obstacleDatas.arraySize; j++)
             {
-                SerializedProperty obstacleData = obstacleDatas.GetArrayElementAtIndex(j);
                 SerializedProperty obstacleData_hp = serializedObject.FindProperty("levels.Array.data[" + i + "].obstacleDatas.Array.data[" + j + "].hp");
                 SerializedProperty obstacleData_length = serializedObject.FindProperty("levels.Array.data[" + i + "].obstacleDatas.Array.data[" + j + "].length");
                 SerializedProperty obstacleData_space = serializedObject.FindProperty("levels.Array.data[" + i + "].obstacleDatas.Array.data[" + j + "].space");

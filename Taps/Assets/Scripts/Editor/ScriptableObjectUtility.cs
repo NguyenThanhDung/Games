@@ -36,12 +36,6 @@ public static class ScriptableObjectUtility
     //	Add your custom menu to create ScriptableObject here
     /// </summary>
 
-    [MenuItem("Taps/Create Level Data")]
-    public static void CreateLevelData()
-    {
-        ScriptableObjectUtility.CreateAsset<LevelData>();
-    }
-
     [MenuItem("Taps/Create Game Settings")]
     public static void CreateGameSettings()
     {
