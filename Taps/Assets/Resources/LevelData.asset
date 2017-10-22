@@ -11,4 +11,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2bf5968100f764bb2a9fbe9382c320, type: 3}
   m_Name: LevelData
   m_EditorClassIdentifier: 
-  levels: []
+  levels:
+  - obstacleDatas:
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
+  - obstacleDatas:
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
+  - obstacleDatas:
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
+    - hp: 0
+      length: 0
+      space: 0
