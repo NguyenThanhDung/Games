@@ -81,6 +81,14 @@ public class GameSettingEditor : Editor
 
         // LEVEL INDICES
         SerializedProperty levelIndices = serializedObject.FindProperty("levelIndices");
+        GUIContent[] popupContent = new GUIContent[levels.arraySize];
+        int[] popupIndices = new int[levels.arraySize];
+        for (int i = 0; i < popupIndices.Length; i++)
+        {
+            popupContent[i] = new GUIContent("Level " + (i + 1).ToString());
+            popupIndices[i] = i;
+        }
+
         EditorGUILayout.Space();
         EditorGUILayout.Foldout(true, "Level Indices");
         EditorGUI.indentLevel++;
@@ -88,7 +96,8 @@ public class GameSettingEditor : Editor
         {
             SerializedProperty obstacleData = levelIndices.GetArrayElementAtIndex(i);
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(obstacleData);
+            GUIContent popupLabel = new GUIContent("Obstacle " + ((i >= levelIndices.arraySize - 1) ? (">=" + i.ToString()) : i.ToString()));
+            EditorGUILayout.IntPopup(obstacleData, popupContent, popupIndices, popupLabel);
             EditorGUILayout.Space();
             if (GUILayout.Button("-", GUILayout.Width(30)))
             {
