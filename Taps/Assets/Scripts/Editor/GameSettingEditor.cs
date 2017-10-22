@@ -24,7 +24,7 @@ public class GameSettingEditor : Editor
         for (int i = 0; i < levels.arraySize; i++)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.Foldout(true, "Level " + (i + 1).ToString());
+            EditorGUILayout.Foldout(true, "Level " + i.ToString());
             if (GUILayout.Button("Remove Level", GUILayout.Width(100)))
             {
                 SerializedProperty childObstacleDatas = serializedObject.FindProperty("levels.Array.data[" + i + "].obstacleDatas");
@@ -44,7 +44,7 @@ public class GameSettingEditor : Editor
                 SerializedProperty obstacleData_space = serializedObject.FindProperty("levels.Array.data[" + i + "].obstacleDatas.Array.data[" + j + "].space");
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Template " + (j + 1).ToString(), GUILayout.Width(100));
+                EditorGUILayout.LabelField("Template " + j.ToString(), GUILayout.Width(100));
                 EditorGUILayout.PropertyField(obstacleData_hp, GUIContent.none, GUILayout.Width(70));
                 EditorGUILayout.PropertyField(obstacleData_length, GUIContent.none, GUILayout.Width(70));
                 EditorGUILayout.PropertyField(obstacleData_space, GUIContent.none, GUILayout.Width(70));
@@ -85,7 +85,7 @@ public class GameSettingEditor : Editor
         int[] popupIndices = new int[levels.arraySize];
         for (int i = 0; i < popupIndices.Length; i++)
         {
-            popupContent[i] = new GUIContent("Level " + (i + 1).ToString());
+            popupContent[i] = new GUIContent("Level " + i.ToString());
             popupIndices[i] = i;
         }
 
