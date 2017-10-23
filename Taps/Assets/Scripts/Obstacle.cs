@@ -21,7 +21,7 @@ public class Obstacle : MonoBehaviour
     private TextMesh _hpText;
     private bool _isRunning;
 
-    private Action onDestroyedHandler;
+    private Action<Obstacle> onDestroyedHandler;
     private Action onReachScreenBottomHandler;
     private bool shouldTriggerReachScreenBottomHandler;
 
@@ -79,7 +79,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public Action DestroyedCallback
+    public Action<Obstacle> DestroyedCallback
     {
         set
         {
@@ -161,8 +161,9 @@ public class Obstacle : MonoBehaviour
         {
             if (onDestroyedHandler != null)
             {
-                onDestroyedHandler();
+                onDestroyedHandler(this);
             }
+            Destroy(gameObject);
         }
         return true;
     }

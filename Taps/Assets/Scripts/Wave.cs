@@ -9,9 +9,15 @@ public class Wave : MonoBehaviour
     private List<Obstacle> _obstacles = new List<Obstacle>(0);
     private float _distanceUnit;
     private float _speed;
-    private Action<int> _selfDestroyedCallback;
-    private Action _obstacleDestroyedCallback;
+    private Action<Wave> _selfDestroyedCallback;
+    private Action<Obstacle> _obstacleDestroyedCallback;
     private Action _reachScreenBottomCallback;
+
+    public int ID
+    {
+        set { _id = value; }
+        get { return _id; }
+    }
 
     public float NextPosition
     {
@@ -21,7 +27,7 @@ public class Wave : MonoBehaviour
         }
     }
 
-    public Action<int> SelfDestroyedCallback
+    public Action<Wave> SelfDestroyedCallback
     {
         set
         {
@@ -29,7 +35,7 @@ public class Wave : MonoBehaviour
         }
     }
 
-    public Action ObstacleDestroyedCallback
+    public Action<Obstacle> ObstacleDestroyedCallback
     {
         set
         {
@@ -47,13 +53,14 @@ public class Wave : MonoBehaviour
 
     public Wave(int id, GameSettings.Template template, float position, float distanceUnit, float speed)
     {
-        _id = id;
+        ID = id;
         for (int i = 0; i < template.obstacleDatas.Count; i++)
         {
             if (i == 0)
                 _obstacles.Add(new Obstacle(template.obstacleDatas[i], position, distanceUnit, speed));
             else
                 _obstacles.Add(new Obstacle(template.obstacleDatas[i], _obstacles[i - 1].NextPosition, distanceUnit, speed));
+            _obstacles[i].DestroyedCallback = _obstacleDestroyedCallback + OnObstacleDestroyed;
         }
     }
 
@@ -68,6 +75,15 @@ public class Wave : MonoBehaviour
             }
         }
         return isAnyObstacleHit;
+    }
+
+    private void OnObstacleDestroyed(Obstacle destroyedObstacle)
+    {
+        _obstacles.Remove(destroyedObstacle);
+        if(_obstacles.Count <=0)
+        {
+            _selfDestroyedCallback(this);
+        }
     }
 
     public void OnGameOver()

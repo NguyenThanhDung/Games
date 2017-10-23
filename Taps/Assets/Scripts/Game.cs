@@ -41,16 +41,20 @@ public class Game : MonoBehaviour
         }
     }
 
-    void OnObstacleIsDestroyed()
+    void OnObstacleIsDestroyed(Obstacle destroyedObstacle)
     {
         _score++;
         Debug.Log("Score: " + _score);
     }
 
-    void OnWaveIsDestroyed(int index)
+    void OnWaveIsDestroyed(Wave destroyedWave)
     {
+        int index = destroyedWave.ID;
         int previousIndex = (index == 0) ? _waves.Length - 1 : index - 1;
         _waves[index] = new Wave(index, _gameSetting.GetTemplate(_currentLevelIndex++), _waves[previousIndex].NextPosition, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
+        _waves[index].SelfDestroyedCallback = OnWaveIsDestroyed;
+        _waves[index].ObstacleDestroyedCallback = OnObstacleIsDestroyed;
+        _waves[index].ReachScreenBottomCallback = OnGameOver;
     }
 
     void OnGameOver()
