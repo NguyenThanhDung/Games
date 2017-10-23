@@ -32,9 +32,9 @@ public class Game : MonoBehaviour
         for (int i = 0; i < _waves.Length; i++)
         {
             if (i == 0)
-                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), Camera.main.orthographicSize, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
+                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, Camera.main.orthographicSize, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
             else
-                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), _waves[i - 1].NextPosition, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
+                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, _waves[i - 1].NextPosition, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
             _waves[i].SelfDestroyedCallback = OnWaveIsDestroyed;
             _waves[i].ObstacleDestroyedCallback = OnObstacleIsDestroyed;
             _waves[i].ReachScreenBottomCallback = OnGameOver;
@@ -47,14 +47,11 @@ public class Game : MonoBehaviour
         Debug.Log("Score: " + _score);
     }
 
-    void OnWaveIsDestroyed(Wave destroyedWave)
+    void OnWaveIsDestroyed(int index)
     {
-        int index = destroyedWave.ID;
+        Debug.Log("OnWaveIsDestroyed(" + index + ")");
         int previousIndex = (index == 0) ? _waves.Length - 1 : index - 1;
-        _waves[index] = new Wave(index, _gameSetting.GetTemplate(_currentLevelIndex++), _waves[previousIndex].NextPosition, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
-        _waves[index].SelfDestroyedCallback = OnWaveIsDestroyed;
-        _waves[index].ObstacleDestroyedCallback = OnObstacleIsDestroyed;
-        _waves[index].ReachScreenBottomCallback = OnGameOver;
+        _waves[index].Regen(_gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, _waves[previousIndex].NextPosition);
     }
 
     void OnGameOver()

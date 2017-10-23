@@ -96,7 +96,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public Obstacle(GameSettings.ObstacleData data, float position, float distanceUnit, float speed)
+    public void Initialize(GameSettings.ObstacleData data, float position, float distanceUnit, float speed)
     {
         HP = data.hp;
         _length = data.length;
@@ -170,6 +170,7 @@ public class Obstacle : MonoBehaviour
 
     public void OnGameOver()
     {
+        Debug.Log("Obstacle OnGameOver");
         _isRunning = false;
     }
 
