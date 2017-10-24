@@ -8,7 +8,6 @@ public class Wave
     private int _id;
     private List<Obstacle> _obstacles = new List<Obstacle>(0);
     private float _distanceUnit;
-    private float _speed;
     private Action<int> _selfDestroyedCallback;
     private Action<Obstacle> _obstacleDestroyedCallback;
     private Action _reachScreenBottomCallback;
@@ -27,19 +26,18 @@ public class Wave
         }
     }
 
-    public Wave(int id, GameSettings.Template template, GameObject obstaclePrefab, float position, float distanceUnit, float speed,
+    public Wave(int id, GameSettings.WaveData waveData, GameObject obstaclePrefab, float position, float distanceUnit, float speed,
         Action<int> selfDestroyedCallback, Action<Obstacle> obstacleDestroyedCallback, Action reachScreenBottomCallback)
     {
         ID = id;
         _distanceUnit = distanceUnit;
-        _speed = speed;
-        for (int i = 0; i < template.obstacleDatas.Count; i++)
+        for (int i = 0; i < waveData.template.obstacleDatas.Count; i++)
         {
             Obstacle obstacle = MonoBehaviour.Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                obstacle.Initialize(template.obstacleDatas[i], position, _distanceUnit, _speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit, waveData.speed);
             else
-                obstacle.Initialize(template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, _speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, waveData.speed);
             _obstacles.Add(obstacle);
         }
 
@@ -53,15 +51,15 @@ public class Wave
         }
     }
 
-    public void Regen(GameSettings.Template template, GameObject obstaclePrefab, float position)
+    public void Regen(GameSettings.WaveData waveData, GameObject obstaclePrefab, float position)
     {
-        for (int i = 0; i < template.obstacleDatas.Count; i++)
+        for (int i = 0; i < waveData.template.obstacleDatas.Count; i++)
         {
             Obstacle obstacle = MonoBehaviour.Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                obstacle.Initialize(template.obstacleDatas[i], position, _distanceUnit, _speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit, waveData.speed);
             else
-                obstacle.Initialize(template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, _speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, waveData.speed);
             _obstacles.Add(obstacle);
         }
 

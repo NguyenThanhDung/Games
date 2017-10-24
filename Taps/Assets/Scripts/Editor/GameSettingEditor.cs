@@ -119,6 +119,7 @@ public class GameSettingEditor : Editor
             popupContent[i] = new GUIContent("Level " + i.ToString());
             popupIndices[i] = i;
         }
+        SerializedProperty speeds = serializedObject.FindProperty("speeds");
 
         EditorGUILayout.Space();
         EditorGUILayout.Foldout(true, "Level Indices");
@@ -126,13 +127,17 @@ public class GameSettingEditor : Editor
         for (int i = 0; i < levelIndices.arraySize; i++)
         {
             SerializedProperty obstacleData = levelIndices.GetArrayElementAtIndex(i);
+            SerializedProperty speed = speeds.GetArrayElementAtIndex(i);
+
             EditorGUILayout.BeginHorizontal();
             GUIContent popupLabel = new GUIContent("Wave " + ((i >= levelIndices.arraySize - 1) ? (">=" + i.ToString()) : i.ToString()));
             EditorGUILayout.IntPopup(obstacleData, popupContent, popupIndices, popupLabel);
+            EditorGUILayout.PropertyField(speed, GUIContent.none, GUILayout.Width(80));
             EditorGUILayout.Space();
             if (GUILayout.Button("-", GUILayout.Width(30)))
             {
                 levelIndices.DeleteArrayElementAtIndex(i);
+                speeds.DeleteArrayElementAtIndex(i);
                 break;
             }
             EditorGUILayout.EndHorizontal();
@@ -142,6 +147,7 @@ public class GameSettingEditor : Editor
         if (GUILayout.Button("+", GUILayout.Width(30)))
         {
             levelIndices.InsertArrayElementAtIndex(levelIndices.arraySize);
+            speeds.InsertArrayElementAtIndex(speeds.arraySize);
         }
         EditorGUILayout.EndHorizontal();
         EditorGUI.indentLevel--;

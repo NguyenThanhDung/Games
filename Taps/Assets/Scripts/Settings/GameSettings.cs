@@ -32,17 +32,32 @@ public class GameSettings : ScriptableObject
         public List<Template> templates = new List<Template>(0);
     }
 
+    public class WaveData
+    {
+        public Template template;
+        public float speed;
+
+        public WaveData(Template template, float speed)
+        {
+            this.template = template;
+            this.speed = speed;
+        }
+    }
+
     public float DistanceUnit = 0.7f;
     public float ObstacleSpeed = 1.0f;
     public List<Level> levels = new List<Level>(0);
     public List<int> levelIndices = new List<int>(0);
+    public List<float> speeds = new List<float>(0);
 
-    public Template GetTemplate(int levelIndex)
+    public WaveData GetWaveData(int levelIndex)
     {
         if (levelIndex >= levelIndices.Count)
             levelIndex = levelIndices.Count - 1;
         int level = levelIndices[levelIndex];
-        return PickTemplate(level);
+        Template template = PickTemplate(level);
+        float speed = speeds[level];
+        return new WaveData(template, speed);
     }
 
     private Template PickTemplate(int level)
