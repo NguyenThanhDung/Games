@@ -32,12 +32,13 @@ public class Game : MonoBehaviour
         for (int i = 0; i < _waves.Length; i++)
         {
             if (i == 0)
-                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, Camera.main.orthographicSize, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
+                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, Camera.main.orthographicSize, 
+                    _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
+                    OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
             else
-                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, _waves[i - 1].NextPosition, _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed);
-            _waves[i].SelfDestroyedCallback = OnWaveIsDestroyed;
-            _waves[i].ObstacleDestroyedCallback = OnObstacleIsDestroyed;
-            _waves[i].ReachScreenBottomCallback = OnGameOver;
+                _waves[i] = new Wave(i, _gameSetting.GetTemplate(_currentLevelIndex++), obstaclePrefab, _waves[i - 1].NextPosition, 
+                    _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
+                    OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
         }
     }
 
@@ -73,6 +74,7 @@ public class Game : MonoBehaviour
                 if (wave.IsHit(_mainCharacter.Position))
                 {
                     isAnyObstacleHit = true;
+                    break;
                 }
             }
             if (!isAnyObstacleHit)

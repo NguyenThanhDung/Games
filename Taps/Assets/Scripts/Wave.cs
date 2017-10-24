@@ -27,39 +27,8 @@ public class Wave
         }
     }
 
-    public Action<int> SelfDestroyedCallback
-    {
-        set
-        {
-            _selfDestroyedCallback += value;
-        }
-    }
-
-    public Action<Obstacle> ObstacleDestroyedCallback
-    {
-        set
-        {
-            _obstacleDestroyedCallback += value;
-            for(int i=0;i<_obstacles.Count;i++)
-            {
-                _obstacles[i].DestroyedCallback = _obstacleDestroyedCallback + OnObstacleDestroyed;
-            }
-        }
-    }
-
-    public Action ReachScreenBottomCallback
-    {
-        set
-        {
-            _reachScreenBottomCallback += value;
-            for (int i = 0; i < _obstacles.Count; i++)
-            {
-                _obstacles[i].ReachScreenBottomCallback = _reachScreenBottomCallback;
-            }
-        }
-    }
-
-    public Wave(int id, GameSettings.Template template, GameObject obstaclePrefab, float position, float distanceUnit, float speed)
+    public Wave(int id, GameSettings.Template template, GameObject obstaclePrefab, float position, float distanceUnit, float speed,
+        Action<int> selfDestroyedCallback, Action<Obstacle> obstacleDestroyedCallback, Action reachScreenBottomCallback)
     {
         ID = id;
         _distanceUnit = distanceUnit;
@@ -73,6 +42,15 @@ public class Wave
                 obstacle.Initialize(template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, _speed);
             _obstacles.Add(obstacle);
         }
+
+        _selfDestroyedCallback = selfDestroyedCallback;
+        _obstacleDestroyedCallback = obstacleDestroyedCallback;
+        _reachScreenBottomCallback = reachScreenBottomCallback;
+        for (int i = 0; i < _obstacles.Count; i++)
+        {
+            _obstacles[i].DestroyedCallback = _obstacleDestroyedCallback + OnObstacleDestroyed;
+            _obstacles[i].ReachScreenBottomCallback = _reachScreenBottomCallback;
+        }
     }
 
     public void Regen(GameSettings.Template template, GameObject obstaclePrefab, float position)
@@ -85,6 +63,12 @@ public class Wave
             else
                 obstacle.Initialize(template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, _speed);
             _obstacles.Add(obstacle);
+        }
+
+        for (int i = 0; i < _obstacles.Count; i++)
+        {
+            _obstacles[i].DestroyedCallback = _obstacleDestroyedCallback + OnObstacleDestroyed;
+            _obstacles[i].ReachScreenBottomCallback = _reachScreenBottomCallback;
         }
     }
 
