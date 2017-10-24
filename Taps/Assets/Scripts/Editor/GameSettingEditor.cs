@@ -40,7 +40,7 @@ public class GameSettingEditor : Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.Foldout(true, "Template " + j.ToString());
-                if (GUILayout.Button("Remove Template", GUILayout.Width(100)))
+                if (GUILayout.Button("Remove Template", GUILayout.Width(120)))
                 {
                     SerializedProperty childObstacleDatas = serializedObject.FindProperty("levels.Array.data[" + i + "].templates.Array.data[" + j + "].obstacleDatas");
                     childObstacleDatas.DeleteCommand();
@@ -81,7 +81,7 @@ public class GameSettingEditor : Editor
             }
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space();
-            if (GUILayout.Button("Add Template", GUILayout.Width(100)))
+            if (GUILayout.Button("Add Template", GUILayout.Width(120)))
             {
                 templates.InsertArrayElementAtIndex(templates.arraySize);
                 SerializedProperty obstacleDatas = serializedObject.FindProperty("levels.Array.data[" + i.ToString() + "].templates.Array.data[" + (templates.arraySize - 1) + "].obstacleDatas");
@@ -127,7 +127,7 @@ public class GameSettingEditor : Editor
         {
             SerializedProperty obstacleData = levelIndices.GetArrayElementAtIndex(i);
             EditorGUILayout.BeginHorizontal();
-            GUIContent popupLabel = new GUIContent("Obstacle " + ((i >= levelIndices.arraySize - 1) ? (">=" + i.ToString()) : i.ToString()));
+            GUIContent popupLabel = new GUIContent("Wave " + ((i >= levelIndices.arraySize - 1) ? (">=" + i.ToString()) : i.ToString()));
             EditorGUILayout.IntPopup(obstacleData, popupContent, popupIndices, popupLabel);
             EditorGUILayout.Space();
             if (GUILayout.Button("-", GUILayout.Width(30)))
