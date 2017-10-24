@@ -12,54 +12,218 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   DistanceUnit: 0.7
-  ObstacleSpeed: 1
+  ObstacleSpeed: 4
   levels:
   - templates:
     - obstacleDatas:
       - hp: 1
-        length: 1
-        space: 1
-      - hp: 2
         length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+    - obstacleDatas:
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+    - obstacleDatas:
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+    - obstacleDatas:
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+    - obstacleDatas:
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+  - templates:
+    - obstacleDatas:
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
         space: 2
     - obstacleDatas:
       - hp: 3
         length: 3
-        space: 3
-      - hp: 4
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+    - obstacleDatas:
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+    - obstacleDatas:
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 1
+        length: 2
+        space: 2
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 3
+        space: 2
+  - templates:
+    - obstacleDatas:
+      - hp: 3
         length: 4
-        space: 4
-    obstacleDatas: []
-  - templates:
+        space: 2
+      - hp: 1
+        length: 2
+        space: 3
+      - hp: 3
+        length: 4
+        space: 2
+      - hp: 1
+        length: 2
+        space: 3
+      - hp: 3
+        length: 4
+        space: 2
+      - hp: 1
+        length: 2
+        space: 3
     - obstacleDatas:
-      - hp: 5
-        length: 5
-        space: 5
-      - hp: 6
-        length: 6
-        space: 6
-    - obstacleDatas:
-      - hp: 7
-        length: 7
-        space: 7
-      - hp: 8
-        length: 8
-        space: 8
-    obstacleDatas: []
-  - templates:
-    - obstacleDatas:
-      - hp: 9
-        length: 9
-        space: 9
-      - hp: 10
-        length: 10
-        space: 10
-    - obstacleDatas:
-      - hp: 11
-        length: 11
-        space: 11
-      - hp: 12
-        length: 12
-        space: 12
-    obstacleDatas: []
-  levelIndices: 000000000100000002000000
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 4
+        space: 3
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 4
+        space: 3
+      - hp: 2
+        length: 3
+        space: 2
+      - hp: 3
+        length: 4
+        space: 3
+  levelIndices: 000000000100000000000000020000000200000002000000
