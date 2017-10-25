@@ -79,6 +79,12 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = value; }
+    }
+
     public Action<Obstacle> DestroyedCallback
     {
         set
@@ -96,14 +102,13 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void Initialize(GameSettings.ObstacleData data, float position, float distanceUnit, float speed)
+    public void Initialize(GameSettings.ObstacleData data, float position, float distanceUnit)
     {
         HP = data.hp;
         _length = data.length;
         _space = data.space;
 
         _distanceUnit = distanceUnit;
-        _speed = speed;
         _isRunning = true;
 
         Transform(position);

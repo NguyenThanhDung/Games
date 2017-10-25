@@ -56,7 +56,7 @@ public class GameSettings : ScriptableObject
             levelIndex = levelIndices.Count - 1;
         int level = levelIndices[levelIndex];
         Template template = PickTemplate(level);
-        float speed = speeds[level];
+        float speed = speeds[levelIndex];
         return new WaveData(template, speed);
     }
 

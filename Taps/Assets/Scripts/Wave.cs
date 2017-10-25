@@ -8,6 +8,7 @@ public class Wave
     private int _id;
     private List<Obstacle> _obstacles = new List<Obstacle>(0);
     private float _distanceUnit;
+    private float _speed;
     private Action<int> _selfDestroyedCallback;
     private Action<Obstacle> _obstacleDestroyedCallback;
     private Action _reachScreenBottomCallback;
@@ -26,18 +27,25 @@ public class Wave
         }
     }
 
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = value; }
+    }
+
     public Wave(int id, GameSettings.WaveData waveData, GameObject obstaclePrefab, float position, float distanceUnit, float speed,
         Action<int> selfDestroyedCallback, Action<Obstacle> obstacleDestroyedCallback, Action reachScreenBottomCallback)
     {
         ID = id;
         _distanceUnit = distanceUnit;
+        Speed = waveData.speed;
         for (int i = 0; i < waveData.template.obstacleDatas.Count; i++)
         {
             Obstacle obstacle = MonoBehaviour.Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit, waveData.speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit);
             else
-                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, waveData.speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit);
             _obstacles.Add(obstacle);
         }
 
@@ -53,13 +61,14 @@ public class Wave
 
     public void Regen(GameSettings.WaveData waveData, GameObject obstaclePrefab, float position)
     {
+        Speed = waveData.speed;
         for (int i = 0; i < waveData.template.obstacleDatas.Count; i++)
         {
             Obstacle obstacle = MonoBehaviour.Instantiate(obstaclePrefab).GetComponent<Obstacle>();
             if (i == 0)
-                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit, waveData.speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit);
             else
-                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit, waveData.speed);
+                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit);
             _obstacles.Add(obstacle);
         }
 
@@ -80,6 +89,14 @@ public class Wave
             }
         }
         return false;
+    }
+
+    public void SetObstacleSpeed(float speed)
+    {
+        for(int i=0;i<_obstacles.Count;i++)
+        {
+            _obstacles[i].Speed = speed;
+        }
     }
 
     private void OnObstacleDestroyed(Obstacle destroyedObstacle)

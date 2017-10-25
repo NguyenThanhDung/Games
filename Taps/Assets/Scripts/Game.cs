@@ -40,6 +40,15 @@ public class Game : MonoBehaviour
                     _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
                     OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
         }
+        SetGameSpeed(_waves[0].Speed);
+    }
+
+    void SetGameSpeed(float speed)
+    {
+        for (int i = 0; i < _waves.Length; i++)
+        {
+            _waves[i].SetObstacleSpeed(speed);
+        }
     }
 
     void OnObstacleIsDestroyed(Obstacle destroyedObstacle)
@@ -53,6 +62,11 @@ public class Game : MonoBehaviour
         Debug.Log("OnWaveIsDestroyed(" + index + ")");
         int previousIndex = (index == 0) ? _waves.Length - 1 : index - 1;
         _waves[index].Regen(_gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, _waves[previousIndex].NextPosition);
+
+        int nextIndex = index + 1;
+        if (nextIndex >= _waves.Length)
+            nextIndex = 0;
+        SetGameSpeed(_waves[nextIndex].Speed);
     }
 
     void OnGameOver()
