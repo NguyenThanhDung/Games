@@ -9,7 +9,7 @@ public class Game : MonoBehaviour
     public GameSettings _gameSetting;
 
     private MainCharacter _mainCharacter;
-    private Wave[] _waves = new Wave[3];
+    private Wave[] _waves = new Wave[2];
     private int _score;
     private int _currentLevelIndex;
 
