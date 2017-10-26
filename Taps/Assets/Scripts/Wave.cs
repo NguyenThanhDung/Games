@@ -38,25 +38,12 @@ public class Wave
     {
         ID = id;
         _distanceUnit = distanceUnit;
-        Speed = waveData.speed;
-        for (int i = 0; i < waveData.template.obstacleDatas.Count; i++)
-        {
-            Obstacle obstacle = MonoBehaviour.Instantiate(obstaclePrefab).GetComponent<Obstacle>();
-            if (i == 0)
-                obstacle.Initialize(waveData.template.obstacleDatas[i], position, _distanceUnit);
-            else
-                obstacle.Initialize(waveData.template.obstacleDatas[i], _obstacles[i - 1].NextPosition, _distanceUnit);
-            _obstacles.Add(obstacle);
-        }
 
         _selfDestroyedCallback = selfDestroyedCallback;
         _obstacleDestroyedCallback = obstacleDestroyedCallback;
         _reachScreenBottomCallback = reachScreenBottomCallback;
-        for (int i = 0; i < _obstacles.Count; i++)
-        {
-            _obstacles[i].DestroyedCallback = _obstacleDestroyedCallback + OnObstacleDestroyed;
-            _obstacles[i].ReachScreenBottomCallback = _reachScreenBottomCallback;
-        }
+
+        Regen(waveData, obstaclePrefab, position);
     }
 
     public void Regen(GameSettings.WaveData waveData, GameObject obstaclePrefab, float position)
