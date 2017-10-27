@@ -95,6 +95,7 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
+            _mainCharacter.HighLight(true);
             bool isAnyObstacleHit = false;
             foreach (Wave wave in _waves)
             {
@@ -108,6 +109,11 @@ public class Game : MonoBehaviour
             {
                 OnGameOver();
             }
+        }
+
+        if (Input.GetMouseButtonUp(0) || Input.GetKeyUp("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
+        {
+            _mainCharacter.HighLight(false);
         }
     }
 }
