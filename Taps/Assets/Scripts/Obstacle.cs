@@ -17,7 +17,7 @@ public class Obstacle : MonoBehaviour
     private float _width;
     private float _height;
     private float _distanceUnit = 0.7f;
-    private float _speed = 1.0f;
+    private float _speed;
     private TextMesh _hpText;
     private bool _isRunning;
 

@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
+    enum GameState
+    {
+        INITIAL,
+        PLAYING,
+        STOPPED
+    }
+
     public GameObject mainCharacterObject;
     public GameObject obstaclePrefab;
     public GameSettings _gameSetting;
     public GameObject _restartButton;
     public Text _scoreText;
+    public Text _instructionText;
 
+    private GameState _gameState;
     private MainCharacter _mainCharacter;
     private Wave[] _waves = new Wave[2];
     private int _score;
@@ -40,6 +49,7 @@ public class Game : MonoBehaviour
 #endif
         Screen.SetResolution(480, 800, false);
 
+        _gameState = GameState.INITIAL;
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
         Initialize();
     }
@@ -55,7 +65,6 @@ public class Game : MonoBehaviour
                 _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
                 OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
         }
-        SetGameSpeed(_waves[0].Speed);
     }
 
     void SetGameSpeed(float speed)
@@ -69,6 +78,7 @@ public class Game : MonoBehaviour
     public void Restart()
     {
         Score = 0;
+        _instructionText.enabled = false;
         _currentLevelIndex = 0;
         for (int i = 0; i < _waves.Length; i++)
         {
@@ -76,6 +86,7 @@ public class Game : MonoBehaviour
             _waves[i].Regen(_gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, (i == 0) ? Camera.main.orthographicSize : _waves[i - 1].NextPosition);
         }
         SetGameSpeed(_waves[0].Speed);
+        _gameState = GameState.PLAYING;
     }
 
     void OnObstacleIsDestroyed(Obstacle destroyedObstacle)
@@ -99,30 +110,46 @@ public class Game : MonoBehaviour
     void OnGameOver()
     {
         Debug.Log("Game Over!");
+        _gameState = GameState.STOPPED;
         for (int i = 0; i < _waves.Length; i++)
         {
             _waves[i].OnGameOver();
         }
         _restartButton.SetActive(true);
+        _instructionText.enabled = true;
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            _mainCharacter.HighLight(true);
-            bool isAnyObstacleHit = false;
-            foreach (Wave wave in _waves)
+            switch (_gameState)
             {
-                if (wave.IsHit(_mainCharacter.Position))
-                {
-                    isAnyObstacleHit = true;
+                case GameState.INITIAL:
+                    _instructionText.enabled = false;
+                    SetGameSpeed(_waves[0].Speed);
+                    _gameState = GameState.PLAYING;
                     break;
-                }
-            }
-            if (!isAnyObstacleHit)
-            {
-                OnGameOver();
+
+                case GameState.PLAYING:
+                    _mainCharacter.HighLight(true);
+                    bool isAnyObstacleHit = false;
+                    foreach (Wave wave in _waves)
+                    {
+                        if (wave.IsHit(_mainCharacter.Position))
+                        {
+                            isAnyObstacleHit = true;
+                            break;
+                        }
+                    }
+                    if (!isAnyObstacleHit)
+                    {
+                        OnGameOver();
+                    }
+                    break;
+
+                case GameState.STOPPED:
+                    break;
             }
         }
 
