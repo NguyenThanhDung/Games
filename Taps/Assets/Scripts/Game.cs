@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -8,11 +9,25 @@ public class Game : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameSettings _gameSetting;
     public GameObject _restartButton;
+    public Text _scoreText;
 
     private MainCharacter _mainCharacter;
     private Wave[] _waves = new Wave[2];
     private int _score;
     private int _currentLevelIndex;
+
+    private int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+            _scoreText.text = "Score: " + _score.ToString();
+        }
+    }
 
     void Start()
     {
@@ -31,7 +46,7 @@ public class Game : MonoBehaviour
 
     void Initialize()
     {
-        _score = 0;
+        Score = 0;
         _currentLevelIndex = 0;
 
         for (int i = 0; i < _waves.Length; i++)
@@ -53,7 +68,7 @@ public class Game : MonoBehaviour
 
     public void Restart()
     {
-        _score = 0;
+        Score = 0;
         _currentLevelIndex = 0;
         for (int i = 0; i < _waves.Length; i++)
         {
@@ -65,8 +80,8 @@ public class Game : MonoBehaviour
 
     void OnObstacleIsDestroyed(Obstacle destroyedObstacle)
     {
-        _score++;
-        Debug.Log("Score: " + _score);
+        Score++;
+        Debug.Log("Score: " + Score);
     }
 
     void OnWaveIsDestroyed(int index)
