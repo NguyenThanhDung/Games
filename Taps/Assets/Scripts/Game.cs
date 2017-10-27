@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public GameObject mainCharacterObject;
     public GameObject obstaclePrefab;
     public GameSettings _gameSetting;
+    public GameObject _restartButton;
 
     private MainCharacter _mainCharacter;
     private Wave[] _waves = new Wave[2];
@@ -24,21 +25,20 @@ public class Game : MonoBehaviour
 #endif
         Screen.SetResolution(480, 800, false);
 
+        _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
+        Initialize();
+    }
+
+    void Initialize()
+    {
         _score = 0;
         _currentLevelIndex = 0;
 
-        _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
-
         for (int i = 0; i < _waves.Length; i++)
         {
-            if (i == 0)
-                _waves[i] = new Wave(i, _gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, Camera.main.orthographicSize, 
-                    _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
-                    OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
-            else
-                _waves[i] = new Wave(i, _gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, _waves[i - 1].NextPosition, 
-                    _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
-                    OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
+            _waves[i] = new Wave(i, _gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, (i == 0) ? Camera.main.orthographicSize : _waves[i - 1].NextPosition,
+                _gameSetting.DistanceUnit, _gameSetting.ObstacleSpeed,
+                OnWaveIsDestroyed, OnObstacleIsDestroyed, OnGameOver);
         }
         SetGameSpeed(_waves[0].Speed);
     }
@@ -49,6 +49,18 @@ public class Game : MonoBehaviour
         {
             _waves[i].SetObstacleSpeed(speed);
         }
+    }
+
+    public void Restart()
+    {
+        _score = 0;
+        _currentLevelIndex = 0;
+        for (int i = 0; i < _waves.Length; i++)
+        {
+            _waves[i].Destroy();
+            _waves[i].Regen(_gameSetting.GetWaveData(_currentLevelIndex++), obstaclePrefab, (i == 0) ? Camera.main.orthographicSize : _waves[i - 1].NextPosition);
+        }
+        SetGameSpeed(_waves[0].Speed);
     }
 
     void OnObstacleIsDestroyed(Obstacle destroyedObstacle)
@@ -76,6 +88,7 @@ public class Game : MonoBehaviour
         {
             _waves[i].OnGameOver();
         }
+        _restartButton.SetActive(true);
     }
 
     void Update()

@@ -80,10 +80,19 @@ public class Wave
 
     public void SetObstacleSpeed(float speed)
     {
-        for(int i=0;i<_obstacles.Count;i++)
+        for (int i = 0; i < _obstacles.Count; i++)
         {
             _obstacles[i].Speed = speed;
         }
+    }
+
+    public void Destroy()
+    {
+        for (int i = 0; i < _obstacles.Count; i++)
+        {
+            MonoBehaviour.Destroy(_obstacles[i].gameObject);
+        }
+        _obstacles.Clear();
     }
 
     private void OnObstacleDestroyed(Obstacle destroyedObstacle)
