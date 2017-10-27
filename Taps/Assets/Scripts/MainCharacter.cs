@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    public Color NormalColor = new Color(255, 255, 255);
-    public Color HighLightColor = new Color(255, 248, 0);
+    public Color NormalColor;
+    public Color HighLightColor;
 
     private SpriteRenderer _spriteRender;
 
