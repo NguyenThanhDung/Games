@@ -43,12 +43,15 @@ public class Board
 
     public void GenerateEnemy()
     {
-        int index = Random.Range(0, _inactiveEnemies.Count);
-        Enemy enemy = _inactiveEnemies[index];
-        _inactiveEnemies.RemoveAt(index);
+        if (_inactiveEnemies.Count > 0)
+        {
+            int index = Random.Range(0, _inactiveEnemies.Count);
+            Enemy enemy = _inactiveEnemies[index];
+            _inactiveEnemies.RemoveAt(index);
 
-        enemy.HP = Random.Range(1, 4);
-        enemy.gameObject.SetActive(true);
-        _activeEnemies.Add(enemy);
+            enemy.HP = Random.Range(1, 4);
+            enemy.gameObject.SetActive(true);
+            _activeEnemies.Add(enemy);
+        }
     }
 }
