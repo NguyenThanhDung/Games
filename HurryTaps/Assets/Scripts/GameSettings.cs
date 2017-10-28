@@ -32,7 +32,7 @@ public class GameSettings
     {
         int i = 0;
         int j = 1;
-        while(_milestones[j] < time)
+        while (j < _milestones.Length && _milestones[j] < time)
         {
             i = j;
             j++;
