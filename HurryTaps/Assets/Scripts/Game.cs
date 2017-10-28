@@ -6,43 +6,39 @@ public class Game : MonoBehaviour
 {
     public GameObject enemyPrefab;
 
-    private float MARGIN = 0.5f;
-    private float PADDING = 0.3f;
-    private int COUNT_V = 3;
-    private int COUNT_H = 3;
-
-    private Enemy[] _enemies;
+    private GameSettings _gameSetting;
+    private Board _board;
+    private float _startTime;
+    private float _currentTime;
+    private float _genTimeStamp;
+    private float _lastGenMilestone;
 
     void Start()
     {
-        float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
-        float enemyWidth = (screenWidth - MARGIN * 2 - PADDING * 2) / COUNT_V;
-        float enemyHeight = enemyWidth;
-        enemyPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
+        _gameSetting = new GameSettings();
+        _board = new Board(enemyPrefab);
 
-        float translateX = (enemyPrefab.transform.localScale.x * COUNT_V + (PADDING * (COUNT_V - 1)) - enemyPrefab.transform.localScale.x) / 2;
-        float translateY = (enemyPrefab.transform.localScale.y * COUNT_H + (PADDING * (COUNT_H - 1)) - enemyPrefab.transform.localScale.y) / 2;
-
-        _enemies = new Enemy[COUNT_V * COUNT_H];
-        for (int i = 0; i < COUNT_V; i++)
-        {
-            for (int j = 0; j < COUNT_H; j++)
-            {
-                GameObject enemyObj = Instantiate(enemyPrefab);
-                float positionX = (enemyObj.transform.localScale.x + PADDING) * i - translateX;
-                float positionY = (enemyObj.transform.localScale.y + PADDING) * j - translateY;
-                enemyObj.transform.position = new Vector3(positionX, positionY, 0.0f);
-                enemyObj.SetActive(false);
-
-                Enemy enemy = enemyObj.GetComponent<Enemy>();
-                enemy.HP = Random.Range(1, 4);
-                _enemies[i * 3 + j] = enemy;
-            }
-        }
+        _startTime = 0.0f;
+        _currentTime = 0.0f;
+        _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
+        _lastGenMilestone = 0.0f;
+        Debug.Log("_genTimeStamp: " + _genTimeStamp);
     }
 
     void Update()
     {
+        _currentTime += Time.deltaTime;
+        float newGenTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
+        if (newGenTimeStamp != _genTimeStamp)
+        {
+            _genTimeStamp = newGenTimeStamp;
+            Debug.Log("_genTimeStamp: " + _genTimeStamp);
+        }
 
+        if ((_currentTime - _lastGenMilestone) > _genTimeStamp)
+        {
+            _board.GenerateEnemy();
+            _lastGenMilestone = _currentTime;
+        }
     }
 }
