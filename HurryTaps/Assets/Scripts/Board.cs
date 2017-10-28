@@ -12,7 +12,7 @@ public class Board
     private List<Enemy> _inactiveEnemies;
     private List<Enemy> _activeEnemies;
 
-    public Board(GameObject enemyPrefab)
+    public Board(GameObject enemyPrefab, System.Action<Enemy> enemyDestroyedCallback)
     {
         float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         float enemyWidth = (screenWidth - MARGIN * 2 - PADDING * 2) / COUNT_V;
@@ -21,7 +21,7 @@ public class Board
 
         float translateX = (enemyPrefab.transform.localScale.x * COUNT_V + (PADDING * (COUNT_V - 1)) - enemyPrefab.transform.localScale.x) / 2;
         float translateY = (enemyPrefab.transform.localScale.y * COUNT_H + (PADDING * (COUNT_H - 1)) - enemyPrefab.transform.localScale.y) / 2;
-
+        
         _inactiveEnemies = new List<Enemy>();
         _activeEnemies = new List<Enemy>();
         for (int i = 0; i < COUNT_V; i++)
@@ -36,6 +36,7 @@ public class Board
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 enemy.HP = Random.Range(1, 4);
+                enemy.DestroyCallback = enemyDestroyedCallback + OnEnemyDestroyed;
                 _inactiveEnemies.Add(enemy);
             }
         }
@@ -55,11 +56,21 @@ public class Board
         }
     }
 
-    public void Hit(Vector3 position)
+    public bool IsHit(Vector3 position)
     {
         for (int i = 0; i < _activeEnemies.Count; i++)
         {
-            _activeEnemies[i].Hit(position);
+            if(_activeEnemies[i].IsHit(position))
+            {
+                return true;
+            }
         }
+        return false;
+    }
+
+    public void OnEnemyDestroyed(Enemy destroyedEnemy)
+    {
+        _activeEnemies.Remove(destroyedEnemy);
+        _inactiveEnemies.Add(destroyedEnemy);
     }
 }

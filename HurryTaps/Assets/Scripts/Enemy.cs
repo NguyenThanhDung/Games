@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,9 +11,14 @@ public class Enemy : MonoBehaviour
     private int _hp;
     private float _speed = 0.5f;
     private float _timeOut = 0.0f;
+    private Action<Enemy> _destroyedHander;
 
     public int HP
     {
+        get
+        {
+            return _hp;
+        }
         set
         {
             _hp = value;
@@ -23,15 +29,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Hit(Vector3 hitPosition)
+    public Action<Enemy> DestroyCallback
+    {
+        set
+        {
+            _destroyedHander += value;
+        }
+    }
+
+    public bool IsHit(Vector3 hitPosition)
     {
         if (hitPosition.x < (transform.position.x - transform.localScale.x / 2) ||
             hitPosition.x > (transform.position.x + transform.localScale.x / 2) ||
             hitPosition.y < (transform.position.y - transform.localScale.y / 2) ||
             hitPosition.y > (transform.position.y + transform.localScale.y / 2))
-            return;
+            return false;
 
-        Debug.Log("Hit");
+        HP -= 1;
+        if (HP <= 0)
+        {
+            gameObject.SetActive(false);
+            _destroyedHander(this);
+        }
+        return true;
     }
 
     void Update()
