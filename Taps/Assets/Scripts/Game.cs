@@ -40,14 +40,8 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-#if UNITY_EDITOR || UNITY_WEBGL
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-#else
-        QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 30;
-#endif
-        Screen.SetResolution(480, 800, false);
 
         _gameState = GameState.INITIAL;
         _mainCharacter = mainCharacterObject.GetComponent<MainCharacter>();
