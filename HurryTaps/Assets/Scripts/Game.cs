@@ -32,8 +32,11 @@ public class Game : MonoBehaviour
                 float positionX = (enemyObj.transform.localScale.x + PADDING) * i - translateX;
                 float positionY = (enemyObj.transform.localScale.y + PADDING) * j - translateY;
                 enemyObj.transform.position = new Vector3(positionX, positionY, 0.0f);
+                enemyObj.SetActive(false);
 
-                _enemies[i * 3 + j] = enemyObj.GetComponent<Enemy>();
+                Enemy enemy = enemyObj.GetComponent<Enemy>();
+                enemy.HP = Random.Range(1, 4);
+                _enemies[i * 3 + j] = enemy;
             }
         }
     }

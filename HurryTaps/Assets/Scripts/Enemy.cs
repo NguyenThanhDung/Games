@@ -23,11 +23,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        HP = Random.Range(1, 4);
-    }
-
     void Update()
     {
         float deltaTimeOut = _speed * Time.deltaTime;
