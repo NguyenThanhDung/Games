@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public TextMesh _hpText;
     public GameObject _redZone;
 
+    private int _hp;
     private float _speed = 0.5f;
     private float _timeOut = 0.0f;
 
+    public int HP
+    {
+        set
+        {
+            _hp = value;
+            if(_hpText!=null)
+            {
+                _hpText.text = _hp.ToString();
+            }
+        }
+    }
+
     void Start()
     {
-        
+        HP = Random.Range(1, 4);
     }
 
     void Update()
