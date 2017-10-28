@@ -8,7 +8,6 @@ public class Game : MonoBehaviour
 
     private GameSettings _gameSetting;
     private Board _board;
-    private float _startTime;
     private float _currentTime;
     private float _genTimeStamp;
     private float _lastGenMilestone;
@@ -18,9 +17,9 @@ public class Game : MonoBehaviour
         _gameSetting = new GameSettings();
         _board = new Board(enemyPrefab);
 
-        _startTime = 0.0f;
         _currentTime = 0.0f;
         _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
+        _board.GenerateEnemy();
         _lastGenMilestone = 0.0f;
         Debug.Log("_genTimeStamp: " + _genTimeStamp);
     }
