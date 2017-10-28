@@ -21,7 +21,6 @@ public class Game : MonoBehaviour
         _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
         _board.GenerateEnemy();
         _lastGenMilestone = 0.0f;
-        Debug.Log("_genTimeStamp: " + _genTimeStamp);
     }
 
     void Update()
@@ -31,13 +30,24 @@ public class Game : MonoBehaviour
         if (newGenTimeStamp != _genTimeStamp)
         {
             _genTimeStamp = newGenTimeStamp;
-            Debug.Log("_genTimeStamp: " + _genTimeStamp);
         }
 
         if ((_currentTime - _lastGenMilestone) > _genTimeStamp)
         {
             _board.GenerateEnemy();
             _lastGenMilestone = _currentTime;
+        }
+
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+        {
+            Vector3 position = new Vector3();
+            if(Input.GetMouseButtonDown(0))
+                position = Input.mousePosition;
+            if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                position = Input.GetTouch(0).position;
+            Ray ray = Camera.main.ScreenPointToRay(position);
+
+            _board.Hit(ray.origin);
         }
     }
 }

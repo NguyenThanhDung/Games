@@ -23,6 +23,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Hit(Vector3 hitPosition)
+    {
+        if (hitPosition.x < (transform.position.x - transform.localScale.x / 2) ||
+            hitPosition.x > (transform.position.x + transform.localScale.x / 2) ||
+            hitPosition.y < (transform.position.y - transform.localScale.y / 2) ||
+            hitPosition.y > (transform.position.y + transform.localScale.y / 2))
+            return;
+
+        Debug.Log("Hit");
+    }
+
     void Update()
     {
         float deltaTimeOut = _speed * Time.deltaTime;

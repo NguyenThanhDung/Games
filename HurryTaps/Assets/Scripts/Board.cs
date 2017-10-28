@@ -54,4 +54,12 @@ public class Board
             _activeEnemies.Add(enemy);
         }
     }
+
+    public void Hit(Vector3 position)
+    {
+        for (int i = 0; i < _activeEnemies.Count; i++)
+        {
+            _activeEnemies[i].Hit(position);
+        }
+    }
 }
