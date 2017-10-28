@@ -53,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4038153188209562}
   - component: {fileID: 212884980409736250}
+  - component: {fileID: 114765407858899894}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -156,6 +157,18 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
+--- !u!114 &114765407858899894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861885611777856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0e36635a0d34642a540b0f20ec35eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _redZone: {fileID: 1357263308112720}
 --- !u!212 &212850578000551336
 SpriteRenderer:
   m_ObjectHideFlags: 1
