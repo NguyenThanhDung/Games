@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Game : MonoBehaviour
 
     public GameObject enemyPrefab;
     public GameObject restartButton;
+    public Text _scoreText;
 
     private GameState _gameState;
     private GameSettings _gameSetting;
@@ -21,6 +23,22 @@ public class Game : MonoBehaviour
     private float _genTimeStamp;
     private float _lastGenMilestone;
     private int _score;
+
+    int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+            if (_scoreText != null)
+            {
+                _scoreText.text = "Score: " + _score.ToString();
+            }
+        }
+    }
 
     void Start()
     {
@@ -37,13 +55,13 @@ public class Game : MonoBehaviour
         _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
         _board.GenerateEnemy(_gameSetting, true);
         _lastGenMilestone = 0.0f;
-        _score = 0;
+        Score = 0;
         _gameState = GameState.PLAYING;
     }
 
     void OnEnemyIsDestroyed(Enemy destroyedEnemy)
     {
-        _score++;
+        Score++;
     }
 
     void OnGameOver()
