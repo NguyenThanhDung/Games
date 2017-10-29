@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     {
         _gameState = GameState.INITIAL;
         _gameSetting = new GameSettings();
-        _board = new Board(enemyPrefab, OnEnemyIsDestroyed);
+        _board = new Board(enemyPrefab, OnEnemyIsDestroyed, OnGameOver);
     }
 
     void OnEnemyIsDestroyed(Enemy destroyedEnemy)

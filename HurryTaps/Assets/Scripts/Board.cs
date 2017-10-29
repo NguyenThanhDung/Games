@@ -12,7 +12,7 @@ public class Board
     private List<Enemy> _inactiveEnemies;
     private List<Enemy> _activeEnemies;
 
-    public Board(GameObject enemyPrefab, System.Action<Enemy> enemyDestroyedCallback)
+    public Board(GameObject enemyPrefab, System.Action<Enemy> enemyDestroyedCallback, System.Action enemyTimeOutCallback)
     {
         float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         float enemyWidth = (screenWidth - MARGIN * 2 - PADDING * 2) / COUNT_V;
@@ -37,6 +37,7 @@ public class Board
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 enemy.HP = Random.Range(1, 4);
                 enemy.DestroyCallback = enemyDestroyedCallback + OnEnemyDestroyed;
+                enemy.TimeOutCallback = enemyTimeOutCallback;
                 _inactiveEnemies.Add(enemy);
             }
         }

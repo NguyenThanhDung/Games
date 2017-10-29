@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private float _speed = 0.5f;
     private float _timeOut = 0.0f;
     private System.Action<Enemy> _destroyedHander;
+    private System.Action _timeOutHandler;
 
     public int HP
     {
@@ -33,6 +34,14 @@ public class Enemy : MonoBehaviour
         set
         {
             _destroyedHander += value;
+        }
+    }
+
+    public System.Action TimeOutCallback
+    {
+        set
+        {
+            _timeOutHandler += value;
         }
     }
 
@@ -72,7 +81,10 @@ public class Enemy : MonoBehaviour
         float deltaTimeOut = _speed * Time.deltaTime;
         _timeOut += deltaTimeOut;
         if (_timeOut > 1.0f)
-            _timeOut = 1.0f;
+        {
+            _timeOutHandler();
+            return;
+        }
 
         float positionX = transform.position.x;
         float positionY = transform.position.y - transform.localScale.y / 2 + _timeOut * transform.localScale.y / 2;
