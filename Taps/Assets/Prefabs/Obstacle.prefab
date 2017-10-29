@@ -170,6 +170,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CirclePositionLeft: 0.5
   CirclePositionBottom: 0.5
+  ColorOfHP1: {r: 0.5254902, g: 0.7058824, b: 0.882353, a: 1}
+  ColorOfHP2: {r: 0.3921569, g: 0.6392157, b: 0.882353, a: 1}
+  ColorOfHP3: {r: 0.20392159, g: 0.48627454, b: 0.76470596, a: 1}
+  ColorOfHP4: {r: 0.07058824, g: 0.28627452, b: 0.49803925, a: 1}
 --- !u!212 &212236575689290214
 SpriteRenderer:
   m_ObjectHideFlags: 1

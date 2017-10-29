@@ -7,7 +7,11 @@ public class Obstacle : MonoBehaviour
 {
     public float CirclePositionLeft;
     public float CirclePositionBottom;
-    
+    public Color ColorOfHP1;
+    public Color ColorOfHP2;
+    public Color ColorOfHP3;
+    public Color ColorOfHP4;
+
     private int _hp;
     private int _length;
     private int _space;
@@ -20,6 +24,7 @@ public class Obstacle : MonoBehaviour
     private float _speed;
     private TextMesh _hpText;
     private bool _isRunning;
+    private SpriteRenderer _spriteRenderer;
 
     private Action<Obstacle> onDestroyedHandler;
     private Action onReachScreenBottomHandler;
@@ -36,6 +41,25 @@ public class Obstacle : MonoBehaviour
                 _hpText = transform.GetChild(1).GetComponent<TextMesh>();
             }
             _hpText.text = _hp.ToString();
+
+            if (_spriteRenderer != null)
+            {
+                switch (_hp)
+                {
+                    case 1:
+                        _spriteRenderer.color = ColorOfHP1;
+                        break;
+                    case 2:
+                        _spriteRenderer.color = ColorOfHP2;
+                        break;
+                    case 3:
+                        _spriteRenderer.color = ColorOfHP3;
+                        break;
+                    default:
+                        _spriteRenderer.color = ColorOfHP4;
+                        break;
+                }
+            }
         }
         get
         {
@@ -104,6 +128,7 @@ public class Obstacle : MonoBehaviour
 
     public void Initialize(GameSettings.ObstacleData data, float position, float distanceUnit)
     {
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         HP = data.hp;
         _length = data.length;
         _space = data.space;
