@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Board
 {
+    private float SCREEN_TRANSLATE_Y = 1.0f;
     private float MARGIN = 0.5f;
     private float PADDING = 0.3f;
     private int COUNT_V = 3;
@@ -19,8 +20,8 @@ public class Board
         float enemyHeight = enemyWidth;
         enemyPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
 
-        float translateX = (enemyPrefab.transform.localScale.x * COUNT_V + (PADDING * (COUNT_V - 1)) - enemyPrefab.transform.localScale.x) / 2;
-        float translateY = (enemyPrefab.transform.localScale.y * COUNT_H + (PADDING * (COUNT_H - 1)) - enemyPrefab.transform.localScale.y) / 2;
+        float translateX = (enemyPrefab.transform.localScale.x - enemyPrefab.transform.localScale.x * COUNT_V - (PADDING * (COUNT_V - 1))) / 2;
+        float translateY = (enemyPrefab.transform.localScale.y - enemyPrefab.transform.localScale.y * COUNT_H - (PADDING * (COUNT_H - 1))) / 2 + SCREEN_TRANSLATE_Y;
         
         _inactiveEnemies = new List<Enemy>();
         _activeEnemies = new List<Enemy>();
@@ -29,8 +30,8 @@ public class Board
             for (int j = 0; j < COUNT_H; j++)
             {
                 GameObject enemyObj = MonoBehaviour.Instantiate(enemyPrefab);
-                float positionX = (enemyObj.transform.localScale.x + PADDING) * i - translateX;
-                float positionY = (enemyObj.transform.localScale.y + PADDING) * j - translateY;
+                float positionX = (enemyObj.transform.localScale.x + PADDING) * i + translateX;
+                float positionY = (enemyObj.transform.localScale.y + PADDING) * j + translateY;
                 enemyObj.transform.position = new Vector3(positionX, positionY, 0.0f);
                 enemyObj.SetActive(false);
 

@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public GameObject _redZone;
 
     private int _hp;
-    private float _speed = 0.5f;
+    private float _speed;
     private float _timeOut = 0.0f;
     private System.Action<Enemy> _destroyedHander;
     private System.Action _timeOutHandler;
