@@ -21,10 +21,10 @@ public class GameSettings
         _milestones[0] = 0.0f;
         _genTimeStamp[0] = 3.0f;
 
-        _milestones[1] = 10.0f;
+        _milestones[1] = 3.0f;
         _genTimeStamp[1] = 2.0f;
 
-        _milestones[2] = 20.0f;
+        _milestones[2] = 6.0f;
         _genTimeStamp[2] = 1.0f;
     }
 
@@ -39,5 +39,22 @@ public class GameSettings
         }
 
         return _genTimeStamp[i];
+    }
+
+    public float GetSpeed(int hp)
+    {
+        switch(hp)
+        {
+            case 1:
+                return Random.Range(0.2f, 0.4f);
+            case 2:
+                return Random.Range(0.4f, 0.6f);
+            case 3:
+                return Random.Range(0.6f, 0.8f);
+            case 4:
+                return Random.Range(0.8f, 1.0f);
+            default:
+                return Random.Range(10.0f, 20.0f);
+        }
     }
 }

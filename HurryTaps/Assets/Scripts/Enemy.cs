@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class Enemy : MonoBehaviour
     private int _hp;
     private float _speed = 0.5f;
     private float _timeOut = 0.0f;
-    private Action<Enemy> _destroyedHander;
+    private System.Action<Enemy> _destroyedHander;
 
     public int HP
     {
@@ -29,12 +28,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public Action<Enemy> DestroyCallback
+    public System.Action<Enemy> DestroyCallback
     {
         set
         {
             _destroyedHander += value;
         }
+    }
+
+    public void Spawn(GameSettings gameSettings, bool isFirstEnemy)
+    {
+        HP = isFirstEnemy? 1 : Random.Range(1, 4);
+        gameObject.SetActive(true);
+        _timeOut = 0.0f;
+        _speed = gameSettings.GetSpeed(HP);
+        Debug.Log("_speed: " + _speed);
     }
 
     public bool IsHit(Vector3 hitPosition)

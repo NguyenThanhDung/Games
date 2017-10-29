@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
 
         _currentTime = 0.0f;
         _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
-        _board.GenerateEnemy();
+        _board.GenerateEnemy(_gameSetting, true);
         _lastGenMilestone = 0.0f;
         _score = 0;
     }
@@ -28,7 +28,6 @@ public class Game : MonoBehaviour
     void OnEnemyIsDestroyed(Enemy destroyedEnemy)
     {
         _score++;
-        Debug.Log("Score: " + _score);
     }
 
     void OnGameOver()
@@ -47,7 +46,7 @@ public class Game : MonoBehaviour
 
         if ((_currentTime - _lastGenMilestone) > _genTimeStamp)
         {
-            _board.GenerateEnemy();
+            _board.GenerateEnemy(_gameSetting);
             _lastGenMilestone = _currentTime;
         }
 

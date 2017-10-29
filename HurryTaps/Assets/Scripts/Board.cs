@@ -42,7 +42,7 @@ public class Board
         }
     }
 
-    public void GenerateEnemy()
+    public void GenerateEnemy(GameSettings gameSettings, bool isFirstEnemy = false)
     {
         if (_inactiveEnemies.Count > 0)
         {
@@ -50,8 +50,7 @@ public class Board
             Enemy enemy = _inactiveEnemies[index];
             _inactiveEnemies.RemoveAt(index);
 
-            enemy.HP = Random.Range(1, 4);
-            enemy.gameObject.SetActive(true);
+            enemy.Spawn(gameSettings, isFirstEnemy);
             _activeEnemies.Add(enemy);
         }
     }
