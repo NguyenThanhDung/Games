@@ -6,12 +6,12 @@ public class GameSettings
 {
     private int COUNT = 3;
     private float[] _milestones;
-    private float[] _genTimeStamp;
+    private float[] _genInterval;
 
     public GameSettings()
     {
         _milestones = new float[COUNT];
-        _genTimeStamp = new float[COUNT];
+        _genInterval = new float[COUNT];
 
         GenerateExampleData();
     }
@@ -19,16 +19,16 @@ public class GameSettings
     private void GenerateExampleData()
     {
         _milestones[0] = 0.0f;
-        _genTimeStamp[0] = 3.0f;
+        _genInterval[0] = 3.0f;
 
         _milestones[1] = 3.0f;
-        _genTimeStamp[1] = 2.0f;
+        _genInterval[1] = 2.0f;
 
         _milestones[2] = 6.0f;
-        _genTimeStamp[2] = 1.0f;
+        _genInterval[2] = 1.0f;
     }
 
-    public float GetGenerateTimeStamp(float time)
+    public float GetGenerateInterval(float time)
     {
         int i = 0;
         int j = 1;
@@ -38,7 +38,7 @@ public class GameSettings
             j++;
         }
 
-        return _genTimeStamp[i];
+        return _genInterval[i];
     }
 
     public float GetSpeed(int hp)

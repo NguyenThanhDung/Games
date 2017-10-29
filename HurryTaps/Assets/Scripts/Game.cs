@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
     private GameSettings _gameSetting;
     private Board _board;
     private float _currentTime;
-    private float _genTimeStamp;
+    private float _genInterval;
     private float _lastGenMilestone;
     private int _score;
 
@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
         restartButton.SetActive(false);
         _currentTime = 0.0f;
         _board.Clear();
-        _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
+        _genInterval = _gameSetting.GetGenerateInterval(_currentTime);
         _board.GenerateEnemy(_gameSetting, true);
         _lastGenMilestone = 0.0f;
         Score = 0;
@@ -76,13 +76,13 @@ public class Game : MonoBehaviour
         if (_gameState == GameState.PLAYING)
         {
             _currentTime += Time.deltaTime;
-            float newGenTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
-            if (newGenTimeStamp != _genTimeStamp)
+            float newGenInterval = _gameSetting.GetGenerateInterval(_currentTime);
+            if (newGenInterval != _genInterval)
             {
-                _genTimeStamp = newGenTimeStamp;
+                _genInterval = newGenInterval;
             }
 
-            if ((_currentTime - _lastGenMilestone) > _genTimeStamp)
+            if ((_currentTime - _lastGenMilestone) > _genInterval)
             {
                 _board.GenerateEnemy(_gameSetting);
                 _lastGenMilestone = _currentTime;
