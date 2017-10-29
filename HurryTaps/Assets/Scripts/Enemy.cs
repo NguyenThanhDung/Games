@@ -62,6 +62,11 @@ public class Enemy : MonoBehaviour
         return true;
     }
 
+    public void Stop()
+    {
+        _speed = 0.0f;
+    }
+
     void Update()
     {
         float deltaTimeOut = _speed * Time.deltaTime;

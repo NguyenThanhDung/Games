@@ -72,4 +72,12 @@ public class Board
         _activeEnemies.Remove(destroyedEnemy);
         _inactiveEnemies.Add(destroyedEnemy);
     }
+
+    public void OnGameOver()
+    {
+        for (int i = 0; i < _activeEnemies.Count; i++)
+        {
+            _activeEnemies[i].Stop();
+        }
+    }
 }
