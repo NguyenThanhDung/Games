@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     }
 
     public GameObject enemyPrefab;
+    public GameObject restartButton;
 
     private GameState _gameState;
     private GameSettings _gameSetting;
@@ -28,6 +29,18 @@ public class Game : MonoBehaviour
         _board = new Board(enemyPrefab, OnEnemyIsDestroyed, OnGameOver);
     }
 
+    public void Play()
+    {
+        restartButton.SetActive(false);
+        _currentTime = 0.0f;
+        _board.Clear();
+        _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
+        _board.GenerateEnemy(_gameSetting, true);
+        _lastGenMilestone = 0.0f;
+        _score = 0;
+        _gameState = GameState.PLAYING;
+    }
+
     void OnEnemyIsDestroyed(Enemy destroyedEnemy)
     {
         _score++;
@@ -37,6 +50,7 @@ public class Game : MonoBehaviour
     {
         _gameState = GameState.STOPPED;
         _board.OnGameOver();
+        restartButton.SetActive(true);
     }
 
     void Update()
@@ -62,12 +76,7 @@ public class Game : MonoBehaviour
             switch (_gameState)
             {
                 case GameState.INITIAL:
-                    _currentTime = 0.0f;
-                    _genTimeStamp = _gameSetting.GetGenerateTimeStamp(_currentTime);
-                    _board.GenerateEnemy(_gameSetting, true);
-                    _lastGenMilestone = 0.0f;
-                    _score = 0;
-                    _gameState = GameState.PLAYING;
+                    Play();
                     break;
 
                 case GameState.PLAYING:

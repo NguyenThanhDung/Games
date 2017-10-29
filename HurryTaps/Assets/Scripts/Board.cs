@@ -43,6 +43,17 @@ public class Board
         }
     }
 
+    public void Clear()
+    {
+        while (_activeEnemies.Count > 0)
+        {
+            Enemy enemy = _activeEnemies[0];
+            enemy.gameObject.SetActive(false);
+            _activeEnemies.Remove(enemy);
+            _inactiveEnemies.Add(enemy);
+        }
+    }
+
     public void GenerateEnemy(GameSettings gameSettings, bool isFirstEnemy = false)
     {
         if (_inactiveEnemies.Count > 0)

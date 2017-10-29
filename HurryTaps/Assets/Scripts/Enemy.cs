@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private float _timeOut = 0.0f;
     private System.Action<Enemy> _destroyedHander;
     private System.Action _timeOutHandler;
+    private bool _shouldSentTimeOutEvent;
 
     public int HP
     {
@@ -51,6 +52,7 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
         _timeOut = 0.0f;
         _speed = gameSettings.GetSpeed(HP);
+        _shouldSentTimeOutEvent = true;
         Debug.Log("_speed: " + _speed);
     }
 
@@ -81,10 +83,7 @@ public class Enemy : MonoBehaviour
         float deltaTimeOut = _speed * Time.deltaTime;
         _timeOut += deltaTimeOut;
         if (_timeOut > 1.0f)
-        {
-            _timeOutHandler();
-            return;
-        }
+            _timeOut = 1.0f;
 
         float positionX = transform.position.x;
         float positionY = transform.position.y - transform.localScale.y / 2 + _timeOut * transform.localScale.y / 2;
@@ -92,5 +91,11 @@ public class Enemy : MonoBehaviour
 
         _redZone.transform.position = new Vector3(positionX, positionY, -0.1f);
         _redZone.transform.localScale = new Vector3(1.0f, scaleY, 1.0f);
+
+        if (_timeOut >= 1.0f && _shouldSentTimeOutEvent)
+        {
+            _shouldSentTimeOutEvent = false;
+            _timeOutHandler();
+        }
     }
 }
