@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     public GameObject borderPrefab;
     public GameObject restartButton;
     public Text _scoreText;
+    public Text instructionText;
 
     private GameState _gameState;
     private GameSettings _gameSetting;
@@ -95,6 +96,7 @@ public class Game : MonoBehaviour
             switch (_gameState)
             {
                 case GameState.INITIAL:
+                    instructionText.enabled = false;
                     Play();
                     break;
 
