@@ -377,6 +377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1861885611777856, guid: 745858cb2ab9b4d47a8e9db4b1508f68,
     type: 2}
+  borderPrefab: {fileID: 1920970408182038, guid: 34e8cbe745747e74197b30abe6a53bdc,
+    type: 2}
   restartButton: {fileID: 2051283619}
   _scoreText: {fileID: 1942819286}
 --- !u!4 &1790167452

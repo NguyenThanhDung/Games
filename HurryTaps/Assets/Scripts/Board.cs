@@ -13,12 +13,13 @@ public class Board
     private List<Enemy> _inactiveEnemies;
     private List<Enemy> _activeEnemies;
 
-    public Board(GameObject enemyPrefab, System.Action<Enemy> enemyDestroyedCallback, System.Action enemyTimeOutCallback)
+    public Board(GameObject enemyPrefab, GameObject borderPrefab, System.Action<Enemy> enemyDestroyedCallback, System.Action enemyTimeOutCallback)
     {
         float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         float enemyWidth = (screenWidth - MARGIN * 2 - PADDING * 2) / COUNT_V;
         float enemyHeight = enemyWidth;
         enemyPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
+        borderPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
 
         float translateX = (enemyPrefab.transform.localScale.x - enemyPrefab.transform.localScale.x * COUNT_V - (PADDING * (COUNT_V - 1))) / 2;
         float translateY = (enemyPrefab.transform.localScale.y - enemyPrefab.transform.localScale.y * COUNT_H - (PADDING * (COUNT_H - 1))) / 2 + SCREEN_TRANSLATE_Y;
@@ -40,6 +41,9 @@ public class Board
                 enemy.DestroyCallback = enemyDestroyedCallback + OnEnemyDestroyed;
                 enemy.TimeOutCallback = enemyTimeOutCallback;
                 _inactiveEnemies.Add(enemy);
+
+                GameObject border = MonoBehaviour.Instantiate(borderPrefab);
+                border.transform.position = new Vector3(positionX, positionY, 0.1f);
             }
         }
     }

@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     }
 
     public GameObject enemyPrefab;
+    public GameObject borderPrefab;
     public GameObject restartButton;
     public Text _scoreText;
 
@@ -44,7 +45,7 @@ public class Game : MonoBehaviour
     {
         _gameState = GameState.INITIAL;
         _gameSetting = new GameSettings();
-        _board = new Board(enemyPrefab, OnEnemyIsDestroyed, OnGameOver);
+        _board = new Board(enemyPrefab, borderPrefab, OnEnemyIsDestroyed, OnGameOver);
     }
 
     public void Play()
