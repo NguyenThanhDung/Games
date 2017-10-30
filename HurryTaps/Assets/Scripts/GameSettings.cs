@@ -14,13 +14,13 @@ public class GameSettings
         _genInterval = new float[COUNT];
 
         _milestones[0] = 0.0f;
-        _genInterval[0] = 3.0f;
+        _genInterval[0] = 1.5f;
 
-        _milestones[1] = 3.0f;
-        _genInterval[1] = 2.0f;
+        _milestones[1] = 5.0f;
+        _genInterval[1] = 1.0f;
 
-        _milestones[2] = 6.0f;
-        _genInterval[2] = 1.0f;
+        _milestones[2] = 10.0f;
+        _genInterval[2] = 0.5f;
     }
 
     public float GetGenerateInterval(float time)
