@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Board
 {
-    private float SCREEN_TRANSLATE_Y = 1.0f;
+    private float SCREEN_TRANSLATE_Y = 0.0f;
     private float MARGIN = 0.5f;
     private float PADDING = 0.3f;
     private int COUNT_V = 3;
