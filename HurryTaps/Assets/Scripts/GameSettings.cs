@@ -13,11 +13,6 @@ public class GameSettings
         _milestones = new float[COUNT];
         _genInterval = new float[COUNT];
 
-        GenerateExampleData();
-    }
-
-    private void GenerateExampleData()
-    {
         _milestones[0] = 0.0f;
         _genInterval[0] = 3.0f;
 
