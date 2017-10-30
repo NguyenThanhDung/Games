@@ -69,7 +69,6 @@ public class Game : MonoBehaviour
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        Screen.SetResolution(450, 800, false);
         _gameState = GameState.INITIAL;
         _timer = DateTime.Now;
         Level = 0;
