@@ -33,7 +33,7 @@ public class Board
                 float positionX = (enemyObj.transform.localScale.x + PADDING) * i + translateX;
                 float positionY = (enemyObj.transform.localScale.y + PADDING) * j + translateY;
                 enemyObj.transform.position = new Vector3(positionX, positionY, 0.0f);
-                enemyObj.SetActive(true);
+                enemyObj.SetActive(false);
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 enemy.HP = Random.Range(1, 4);
