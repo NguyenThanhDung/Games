@@ -18,11 +18,11 @@ public class Board
         float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
         float enemyWidth = (screenWidth - MARGIN * 2 - PADDING * 2) / COUNT_V;
         float enemyHeight = enemyWidth;
-        enemyPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
-        borderPrefab.transform.localScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
+        Vector3 enemyScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
+        Vector3 borderScale = new Vector3(enemyWidth, enemyHeight, 1.0f);
 
-        float translateX = (enemyPrefab.transform.localScale.x - enemyPrefab.transform.localScale.x * COUNT_V - (PADDING * (COUNT_V - 1))) / 2;
-        float translateY = (enemyPrefab.transform.localScale.y - enemyPrefab.transform.localScale.y * COUNT_H - (PADDING * (COUNT_H - 1))) / 2 + SCREEN_TRANSLATE_Y;
+        float translateX = (enemyScale.x - enemyScale.x * COUNT_V - (PADDING * (COUNT_V - 1))) / 2;
+        float translateY = (enemyScale.y - enemyScale.y * COUNT_H - (PADDING * (COUNT_H - 1))) / 2 + SCREEN_TRANSLATE_Y;
         
         _inactiveEnemies = new List<Enemy>();
         _activeEnemies = new List<Enemy>();
@@ -31,9 +31,10 @@ public class Board
             for (int j = 0; j < COUNT_H; j++)
             {
                 GameObject enemyObj = MonoBehaviour.Instantiate(enemyPrefab);
-                float positionX = (enemyObj.transform.localScale.x + PADDING) * i + translateX;
-                float positionY = (enemyObj.transform.localScale.y + PADDING) * j + translateY;
+                float positionX = (enemyScale.x + PADDING) * i + translateX;
+                float positionY = (enemyScale.y + PADDING) * j + translateY;
                 enemyObj.transform.position = new Vector3(positionX, positionY, 0.0f);
+                enemyObj.transform.localScale = enemyScale;
                 enemyObj.SetActive(false);
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
@@ -44,6 +45,7 @@ public class Board
 
                 GameObject border = MonoBehaviour.Instantiate(borderPrefab);
                 border.transform.position = new Vector3(positionX, positionY, 0.1f);
+                border.transform.localScale = borderScale;
             }
         }
     }
